@@ -39,33 +39,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // Event listener for adding an activity
-    document.getElementById('addActivityBtn').addEventListener('click', async function() {
-        const participantId = document.getElementById('selectParticipant').value;
-        const activityType = document.getElementById('selectActivityType').value;
-        const activityDescription = document.getElementById('activityDescription').value;
-        const caseNotes = document.getElementById('caseNotes').value;
-        const billableHours = document.getElementById('billableHours').value;
+// Event listener for adding an activity
+document.getElementById('addActivityBtn').addEventListener('click', async function() {
+  const participantId = document.getElementById('selectParticipant').value;
+  const activityType = document.getElementById('selectActivityType').value;
+  const activityDescription = document.getElementById('activityDescription').value;
+  const caseNotes = document.getElementById('caseNotes').value;
+  const billableHours = document.getElementById('billableHours').value;
 
-        try {
-            const response = await fetch('/activities', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ participantId, activityType, activityDescription, caseNotes, billableHours })
-            });
-            if (response.ok) {
-                const data = await response.json();
-                alert('Activity added successfully');
-            } else {
-                const text = await response.text();
-                throw new Error(text || 'Failed to add activity');
-            }
-        } catch (error) {
-            alert(error.message);
-        }
-    });
+  // Get the uploaded file
+  const fileInput = document.getElementById('fileUpload');
+  const file = fileInput.files[0]; // Assuming only one file is selected
+
+  // Convert file to base64 string
+  const reader = new FileReader();
+  reader.onload = async function(event) {
+    const fileData = event.target.result;
+
+    try {
+      const response = await fetch('/activities', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ participantId, activityType, activityDescription, caseNotes, billableHours, fileData })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        alert('Activity added successfully');
+      } else {
+        const text = await response.text();
+        throw new Error(text || 'Failed to add activity');
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  reader.readAsDataURL(file); // Read file as data URL
+});
+
 
     document.getElementById('selectActivityType').addEventListener('change', function() {
         var customInput = document.getElementById('customActivityType');
