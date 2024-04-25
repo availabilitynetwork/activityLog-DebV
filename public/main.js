@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             if (response.ok) {
                 const data = await response.json();
-                alert('Participant added successfully');
                 console.log("Participant added successfully:", data); // Log the added participant data
+                alert('Participant added successfully');
+                
             } else {
                 const text = await response.text();
                 console.error("Failed to add participant:", text); // Log the error
