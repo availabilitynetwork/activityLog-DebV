@@ -3,70 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Activity Log</title>
+    <title>Activity Log Dashboard</title>
     <!-- Bootstrap CSS CDN -->
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="/main.css" rel="stylesheet" />
+    <link href="main.css" rel="stylesheet" />
+    <style>
+      /* Additional CSS styles */
+    </style>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Activity Log Dashboard</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h4>Dashboard</h4></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h4>Reports</h4></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h4>Calendar</h4></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
-      <div class="heading text-center mt-2 pt-2">
+      <div class="heading text-center mt-4">
         <h2>ACTIVITY LOG</h2>
       </div>
-      <div>
-        <ul style="list-style: none;">
-          <li><button class="btn btn-primary pt-1">Report1</button></li>
-          <li><button class="btn btn-primary pt-1 mt-1">Report2</button></li>
-        </ul>
-      </div>
 
-      <div class="row mt-1 pt-2">
-        <div class="col-12 col-sm-6">
+      <hr />
+
+      <div class="row">
+        <div class="col-md-6">
           <h3>Add Participant</h3>
-          <div class="form-group" id="participant">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" />
-
-            <label for="firstName">First Name:</label>
-            <input type="text" class="form-control" id="firstName" />
-
-            <label for="lastName">Last Name:</label>
-            <input type="text" class="form-control" id="lastName" />
-
-            <label for="phone">Phone:</label>
-            <input type="tel" class="form-control" id="phone" />
-
-            <!-- <label for="document">Select Document:</label>
-        <input type="file" id="document" class="form-control" name="document" accept=".pdf,.doc,.docx">
-        <button onclick="downloadDocument()" class="mt-2">Download</button> -->
-
-            <button id="submitParticipantBtn" class="btn btn-primary">
+          <form id="participantForm">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" id="email" required />
+            </div>
+            <div class="form-group">
+              <label for="firstName">First Name:</label>
+              <input type="text" class="form-control" id="firstName" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name:</label>
+              <input type="text" class="form-control" id="lastName" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone:</label>
+              <input type="tel" class="form-control" id="phone" />
+            </div>
+            <button type="submit" class="btn btn-primary">
               Submit Participant
             </button>
-          </div>
+          </form>
+          <div id="participantMsg" class="text-danger mt-2"></div>
         </div>
 
-        <div class="col-12 col-sm-6">
+        <div class="col-md-6">
           <h3>Add Activity</h3>
-          <div class="form-group">
-            <label for="selectParticipant">Select Participant:</label>
-            <select class="form-control" id="selectParticipant">
-              <!-- Populate this dropdown dynamically with existing participants -->
-              <option value="">Select Participant</option>
-            </select>
-          </div>
-          <div class="form-group" id="activity">
-            <form id="selectActivityForm">
-              <label for="selectActivityType"
-                >Select or Create Activity Type:</label
-              >
-              <select class="form-control" id="selectActivityType">
-                <!-- Populate this dropdown dynamically with existing activity types -->
+          <form id="activityForm">
+            <div class="form-group">
+              <label for="selectParticipant">Select Participant:</label>
+              <select class="form-control" id="selectParticipant" required>
+                <option value="">Select Participant</option>
+                <!-- Populate dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="selectActivityType">Select Activity Type:</label>
+              <select class="form-control" id="selectActivityType" required>
                 <option value="">Select Activity Type</option>
-                <!-- You can dynamically add options here -->
+                <!-- Populate dynamically -->
                 <option value="Custom">Custom</option>
               </select>
               <input
@@ -76,30 +103,62 @@
                 placeholder="Enter Custom Activity Type"
                 style="display: none;"
               />
+            </div>
+            <div class="form-group">
               <label for="activityDescription">Activity Description:</label>
               <input
                 type="text"
                 class="form-control"
                 id="activityDescription"
+                required
               />
+            </div>
+            <div class="form-group">
               <label for="caseNotes">Case Notes:</label>
               <input type="text" class="form-control" id="caseNotes" />
+            </div>
+            <div class="form-group">
               <label for="billableHours">Billable Hours:</label>
-              <input type="number" class="form-control" id="billableHours" />
-            </form>
-          </div>
+              <input
+                type="number"
+                class="form-control"
+                id="billableHours"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Submit Activity
+            </button>
+          </form>
+        </div>
+      </div>
 
-          <p id="participantMsg" class="text-danger mt-2"></p>
-          <button id="addActivityBtn" class="btn btn-primary">
-            Submit Activity
-          </button>
+      <hr />
+
+      <div class="row">
+        <div class="col">
+          <h3>Recent Activity</h3>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Participant</th>
+                <th>Activity Type</th>
+                <th>Description</th>
+                <th>Billable Hours</th>
+              </tr>
+            </thead>
+            <tbody id="activityLogBody">
+              <!-- Populate dynamically -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-    <script src="/main.js"></script>
-    <!-- Bootstrap JS and jQuery CDN -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

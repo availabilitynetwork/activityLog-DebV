@@ -1,6 +1,7 @@
 /* Apply the font to the body */
 body,
-button, container {
+button,
+container {
   font-family: "Georgia", serif;
   font-variant: small-caps;
   font-size: 12px; /* You can adjust the font size as needed */
@@ -11,6 +12,26 @@ button, container {
 .form-group {
   margin-bottom: 15px;
 }
+
 .container {
   width: 1000pk;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
 }
+body {
+  background-color: #f8f9fa;
+}
+.navbar {
+  background-color: #007bff !important;
+}
+.navbar-brand {
+  color: #402424;
+  font-weight: bold;
+}
+.navbar-nav .nav-link {
+  color: #3e3232 !important;
+}
+

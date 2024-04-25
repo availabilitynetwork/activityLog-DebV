@@ -54,13 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Event listener for showing the custom activity type input
-    document.getElementById('selectActivityType').addEventListener('change', function() {
-        const customActivityInput = document.getElementById('customActivityType');
-        if (this.value === 'Custom') {
-            customActivityInput.style.display = 'block';
-        } else {
-            customActivityInput.style.display = 'none';
-        }
-    });
+     document.getElementById('selectActivityType').addEventListener('change', function() {
+    var customInput = document.getElementById('customActivityType');
+    if (this.value === 'Custom') {
+      customInput.style.display = 'block';
+      customInput.setAttribute('required', 'required');
+    } else {
+      customInput.style.display = 'none';
+      customInput.removeAttribute('required');
+    }
+  });
 });
