@@ -1,30 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Event listener for submitting a participant
-    document.getElementById('submitParticipantBtn').addEventListener('click', async function(event) {
-        // Prevent default form submission behavior
+   // Event listener for submitting a participant
+    document.getElementById('participantForm').addEventListener('submit', async function(event) {
         event.preventDefault();
-        
+
         const email = document.getElementById('email').value;
         const firstName = document.getElementById('firstName').value;
         const lastName = document.getElementById('lastName').value;
         const phone = document.getElementById('phone').value;
 
+        // File upload handling
+        const fileInput = document.getElementById('file');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('firstName', firstName);
+        formData.append('lastName', lastName);
+        formData.append('phone', phone);
+        formData.append('file', file);
+
         try {
             const response = await fetch('/participants', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, firstName, lastName, phone })
+                body: formData
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log("Participant added successfully:", data); // Log the added participant data
+                console.log("Participant added successfully:", data);
                 alert('Participant added successfully');
             } else {
                 const text = await response.text();
-                console.error("Failed to add participant:", text); // Log the error
-                throw new Error('Failed to add participant' || text);
+                console.error("Failed to add participant:", text);
+                throw new Error('Failed to add participant,  database not connected TBA' || text);
             }
         } catch (error) {
             alert(error.message);
