@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Event listener for submitting a participant
-    document.getElementById('submitParticipantBtn').addEventListener('click', async function() {
+    document.getElementById('submitParticipantBtn').addEventListener('click', async function(event) {
+        // Prevent default form submission behavior
+        event.preventDefault();
+        
         const email = document.getElementById('email').value;
         const firstName = document.getElementById('firstName').value;
         const lastName = document.getElementById('lastName').value;
@@ -18,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 console.log("Participant added successfully:", data); // Log the added participant data
                 alert('Participant added successfully');
-                
             } else {
                 const text = await response.text();
                 console.error("Failed to add participant:", text); // Log the error
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(error.message);
         }
     });
+
 
     // Event listener for adding an activity
     document.getElementById('addActivityBtn').addEventListener('click', async function() {
