@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Log</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Add Participant</h3>
+      <div class="form-group" id="participant">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email">
+     
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName">
+  
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName">
+    
+      
+        <label for="phone">Phone:</label>
+        <input type="tel" class="form-control" id="phone">    
+     
+        <!-- <label for="document">Select Document:</label>
+        <input type="file" id="document" class="form-control" name="document" accept=".pdf,.doc,.docx">
+        <button onclick="downloadDocument()" class="mt-2">Download</button> -->
+    
+
+      <button id="submitParticipantBtn" class="btn btn-primary">Submit Participant</button>
+    </div></div>
+
+<div class="col">
+    <h3>Add Activity</h3>
+    <div class="form-group">
+        <label for="selectParticipant">Select Participant:</label>
+        <select class="form-control" id="selectParticipant">
+            <!-- Populate this dropdown dynamically with existing participants -->
+            <option value="">Select Participant</option>
+        </select>
+    </div>
+    <div class="form-group" id="activity">
+        <form id="selectActivityForm">
+            <label for="selectActivityType">Select or Create Activity Type:</label>
+            <select class="form-control" id="selectActivityType">
+                <!-- Populate this dropdown dynamically with existing activity types -->
+                <option value="">Select Activity Type</option>
+                <!-- You can dynamically add options here -->
+                <option value="Custom">Custom</option>
+             </select>
+            <input type="text" class="form-control mt-2" id="customActivityType" placeholder="Enter Custom Activity Type" style="display: none;">
+            <label for="activityDescription">Activity Description:</label>
+            <input type="text" class="form-control" id="activityDescription">
+            <label for="caseNotes">Case Notes:</label>
+            <input type="text" class="form-control" id="caseNotes">
+            <label for="billableHours">Billable Hours:</label>
+            <input type="number" class="form-control" id="billableHours">
+        </form>
+    </div>
+
+    <p id="participantMsg" class="text-danger mt-2"></p>
+    <button id="addActivityBtn" class="btn btn-primary">Submit Activity</button>
+</div>
+
+</div>
+
+<script src="/main.js"></script>
+<!-- Bootstrap JS and jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- <script>
+    function downloadDocument() {
+        const fileInput = document.getElementById('document');
+        const selectedFile = fileInput.files[0];
+        if (selectedFile) {
+            const downloadUrl = URL.createObjectURL(selectedFile);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = selectedFile.name;
+            link.click();
+        } else {
+            alert('Please select a document to download.');
+        }
+    }
+</script> -->
+<!-- <script>
+    // Add event listeners after the main.js file is loaded
+    document.getElementById('submitParticipantBtn').addEventListener('click', submitParticipant);
+    document.getElementById('addActivityBtn').addEventListener('click', addActivity);
+</script> -->
+
+</body>
+</html>

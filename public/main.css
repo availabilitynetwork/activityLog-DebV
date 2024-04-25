@@ -1,0 +1,14 @@
+/* Apply the font to the body */
+body,
+button {
+  font-family: "Georgia", serif;
+  font-variant: small-caps;
+  font-size: 12px; /* You can adjust the font size as needed */
+}
+.container {
+  margin-top: 20px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+/*         .hidden { display: none; } */
