@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 const text = await response.text();
                 console.error("Failed to add participant:", text); // Log the error
-                throw new Error(text || 'Failed to add participant');
+                throw new Error('Failed to add participant' || text);
             }
         } catch (error) {
             alert(error.message);
