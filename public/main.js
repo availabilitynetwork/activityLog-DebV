@@ -17,12 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 const data = await response.json();
                 alert('Participant added successfully');
-                console.log("Participant added successfully");
+                console.log("Participant added successfully:", data); // Log the added participant data
             } else {
                 const text = await response.text();
-                console.log("Failed to add participant");
+                console.error("Failed to add participant:", text); // Log the error
                 throw new Error(text || 'Failed to add participant');
-                
             }
         } catch (error) {
             alert(error.message);
@@ -57,17 +56,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-     document.getElementById('selectActivityType').addEventListener('change', function() {
-    var customInput = document.getElementById('customActivityType');
-    if (this.value === 'Custom') {
-      customInput.style.display = 'block';
-      customInput.setAttribute('required', 'required');
-    } else {
-      customInput.style.display = 'none';
-      customInput.removeAttribute('required');
-    }
-     });
-   // Get the current date
+    document.getElementById('selectActivityType').addEventListener('change', function() {
+        var customInput = document.getElementById('customActivityType');
+        if (this.value === 'Custom') {
+            customInput.style.display = 'block';
+            customInput.setAttribute('required', 'required');
+        } else {
+            customInput.style.display = 'none';
+            customInput.removeAttribute('required');
+        }
+    });
+
+    // Get the current date
     var currentDate = new Date();
     
     // Format the date with the day of the week (e.g., "Mon, Apr 25, 2024")
@@ -76,5 +76,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update the content of the span element with the current date
     document.getElementById('currentDate').textContent = formattedDate;
-
 });
