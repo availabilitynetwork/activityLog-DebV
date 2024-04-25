@@ -35,7 +35,7 @@ const pool = new Pool({
     password: process.env.DB_PASS,
     port: process.env.DB_PORT,
     ssl: {
-        rejectUnauthorized: true // Make sure to enforce SSL validation in production for security
+        rejectUnauthorized: false // Make sure to enforce SSL validation in production for security
     }
 });
 
