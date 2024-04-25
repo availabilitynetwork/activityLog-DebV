@@ -27,11 +27,12 @@ body {
 .navbar {
   background-color: #88abce !important;
 }
-.navbar-brand {
-  color: #402424;
-  font-weight: bold;
-}
+#currentDate,
+.navbar-brand,
 .navbar-nav .nav-link {
-  color: #3e3232 !important;
+  color: #402424 !important;
+  font-weight: 200;
 }
-
+#currentDate {
+  font-size: larger;
+}

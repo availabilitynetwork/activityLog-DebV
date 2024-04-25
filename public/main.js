@@ -63,5 +63,15 @@ document.addEventListener('DOMContentLoaded', function() {
       customInput.style.display = 'none';
       customInput.removeAttribute('required');
     }
-  });
+     });
+   // Get the current date
+    var currentDate = new Date();
+    
+    // Format the date with the day of the week (e.g., "Mon, Apr 25, 2024")
+    var options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+    var formattedDate = currentDate.toLocaleDateString('en-US', options);
+    
+    // Update the content of the span element with the current date
+    document.getElementById('currentDate').textContent = formattedDate;
+
 });

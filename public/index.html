@@ -18,6 +18,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
         <a class="navbar-brand" href="#">Activity Log Dashboard</a>
+        <!-- Include current date -->
+        <span id="currentDate" class="navbar-text ml-auto"></span>
+        <!-- End of current date -->
         <button
           class="navbar-toggler"
           type="button"
@@ -72,10 +75,13 @@
               <label for="phone">Phone:</label>
               <input type="tel" class="form-control" id="phone" />
             </div>
-            <button type="submit" class="btn btn-primary" id="submitParticipantBtn">
-    Submit Participant
-</button>
-
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="submitParticipantBtn"
+            >
+              Submit Participant
+            </button>
           </form>
           <div id="participantMsg" class="text-danger mt-2"></div>
         </div>
