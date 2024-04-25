@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const phone = document.getElementById('phone').value;
 
         try {
-            const response = await fetch('/api/participants', {
+            const response = await fetch('/participants', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const billableHours = document.getElementById('billableHours').value;
 
         try {
-            const response = await fetch('/api/activities', {
+            const response = await fetch('/activities', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
