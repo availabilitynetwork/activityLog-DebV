@@ -90,29 +90,39 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('currentDate').textContent = formattedDate;
 });
 
-async function updateParticipantDropdown() {
+async function fetchWithErrorHandling(url, options) {
     try {
-        const response = await fetch('/participants', {
-            method: 'GET'
-        });
-        if (response.ok) {
-            const participants = await response.json();
-            const select = document.getElementById('selectParticipant');
-            select.innerHTML = ''; // Clear existing options
-            participants.forEach(participant => {
-                let option = document.createElement('option');
-                option.value = participant.id;
-                option.textContent = `${participant.first_name} ${participant.last_name} (${participant.email})`;
-                select.appendChild(option);
-            });
-        } else {
-            throw new Error('Failed to fetch participants');
+        const response = await fetch(url, options);
+        const text = await response.text(); // First attempt to read as text
+        try {
+            return JSON.parse(text); // Then try to parse text as JSON
+        } catch (e) {
+            throw new Error(`Invalid JSON response: ${text}`); // Throw if JSON parsing fails
         }
     } catch (error) {
-        console.error('Error updating participant dropdown:', error);
-        alert('Failed to load participants');
+        console.error('Network or server error:', error);
+        throw error; // Rethrow to be handled by caller
     }
 }
+
+// Example of using the above function in your participant dropdown update
+async function updateParticipantDropdown() {
+    try {
+        const participants = await fetchWithErrorHandling('/participants', { method: 'GET' });
+        const select = document.getElementById('selectParticipant');
+        select.innerHTML = ''; // Clear existing options
+        participants.forEach(participant => {
+            let option = new Option(`${participant.first_name} ${participant.last_name} (${participant.email})`, participant.id);
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error updating participant dropdown:', error);
+        // Display error in UI instead of alert
+        document.getElementById('participantMsg').textContent = 'Failed to load participants: ' + error.message;
+    }
+}
+
+
 
 async function updateActivityTypeDropdown() {
     try {
