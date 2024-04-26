@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('firstName', firstName);
         formData.append('lastName', lastName);
         formData.append('phone', phone);
-        formData.append('file', file);
-
         try {
             const response = await fetch('/participants', {
                 method: 'POST',
