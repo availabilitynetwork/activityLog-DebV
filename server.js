@@ -64,6 +64,18 @@ app.post('/participants', async (req, res) => {
 
     }
 });
+// Endpoint to get all participants
+app.get('/participants', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT id, email, first_name, last_name FROM participants ORDER BY first_name, last_name;');
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error fetching participants:', error);
+        res.status(500).send({ message: 'Server error', error: error.message });
+    }
+});
+
+
 
 // Endpoint to add a new activity
 app.post('/activities', async (req, res) => {

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
    // Event listener for submitting a participant
     document.getElementById('participantForm').addEventListener('submit', async function(event) {
         event.preventDefault();
+        updateParticipantDropdown(); // Also call on page load to populate initially
 
         const email = document.getElementById('email').value;
         const firstName = document.getElementById('firstName').value;
@@ -31,6 +32,29 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(error.message);
         }
     });
+async function updateParticipantDropdown() {
+    try {
+        const response = await fetch('/participants', {
+            method: 'GET'
+        });
+        if (response.ok) {
+            const participants = await response.json();
+            const select = document.getElementById('selectParticipant');
+            select.innerHTML = ''; // Clear existing options
+            participants.forEach(participant => {
+                let option = document.createElement('option');
+                option.value = participant.id;
+                option.textContent = `${participant.first_name} ${participant.last_name} (${participant.email})`;
+                select.appendChild(option);
+            });
+        } else {
+            throw new Error('Failed to fetch participants');
+        }
+    } catch (error) {
+        console.error('Error updating participant dropdown:', error);
+  }
+  updateParticipantDropdown(); // Call this to update the dropdown after adding 
+}
 
 
 // Event listener for adding an activity
