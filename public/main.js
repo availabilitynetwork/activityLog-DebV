@@ -5,38 +5,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listeners
     document.getElementById('participantForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        const email = document.getElementById('email').value;
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const phone = document.getElementById('phone').value;
 
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('firstName', firstName);
-        formData.append('lastName', lastName);
-        formData.append('phone', phone);
-
-        try {
-            const response = await fetch('/', {
-                method: 'POST',
-                body: formData
-            });
-            if (response.ok) {
-                const data = await response.json();
-                console.log("Participant added successfully:", data);
-                alert('Participant added successfully');
-                updateParticipantDropdown(); // Update dropdown after adding a participant
-            } else {
-                const text = await response.text();
-                console.error("Failed to add participant:", text);
-                throw new Error(text);
-            }
-        } catch (error) {
-            alert(error.message);
-        }
+    // Create a JSON object from the form fields
+    const jsonData = JSON.stringify({
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone
     });
+
+    try {
+        const response = await fetch('/participants', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: jsonData  // Use JSON string as body
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Participant added successfully:", data);
+            alert('Participant added successfully');
+            updateParticipantDropdown(); // Update dropdown after adding a participant
+        } else {
+            const text = await response.text();
+            console.error("Failed to add participant:", text);
+            throw new Error(text);
+        }
+    } catch (error) {
+        alert(error.message);
+    }
+});
+
 
     document.getElementById('addActivityBtn').addEventListener('click', async function() {
         const participantId = document.getElementById('selectParticipant').value;
@@ -107,7 +111,7 @@ async function fetchWithErrorHandling(url, options) {
 
 async function updateParticipantDropdown() {
     try {
-        const participants = await fetchWithErrorHandling('/', { method: 'GET' });
+        const participants = await fetchWithErrorHandling('/participants', { method: 'GET' });
         const select = document.getElementById('selectParticipant');
         select.innerHTML = ''; // Clear existing options
         if (participants.length === 0) {
