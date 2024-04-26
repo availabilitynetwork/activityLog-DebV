@@ -105,19 +105,14 @@ async function fetchWithErrorHandling(url, options) {
     }
 }
 
-// Example of using the above function in your participant dropdown update
 async function updateParticipantDropdown() {
     try {
-        const response = await fetch('/', { method: 'GET' });
-        if (!response.ok) throw new Error('Failed to fetch, status: ' + response.status);
-        const participants = await response.json();
+        const participants = await fetchWithErrorHandling('/', { method: 'GET' });
         const select = document.getElementById('selectParticipant');
         select.innerHTML = ''; // Clear existing options
-
-        // Check if the participants array is empty and handle accordingly
         if (participants.length === 0) {
             let option = new Option("No participants available", "");
-            option.disabled = true; // Disable the option so it cannot be selected
+            option.disabled = true;
             select.appendChild(option);
         } else {
             participants.forEach(participant => {
@@ -127,7 +122,7 @@ async function updateParticipantDropdown() {
         }
     } catch (error) {
         console.error('Error updating participant dropdown:', error);
-        document.getElementById('participantMsg').textContent = 'Failed to load participants: ' + error.message;
+        document.getElementById('participantMsg').textContent = `Failed to load participants: ${error.message}`;
     }
 }
 
