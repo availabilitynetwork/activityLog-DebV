@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('lastName', lastName);
         formData.append('phone', phone);
         try {
-            const response = await fetch('/participants', {
+            const response = await fetch('/', {
                 method: 'POST',
                 body: formData
             });
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 async function updateParticipantDropdown() {
     try {
-        const response = await fetch('/participants', {
+        const response = await fetch('/', {
             method: 'GET'
         });
         if (response.ok) {
