@@ -49,8 +49,8 @@ pool.query('SELECT NOW()', (err, res) => {
 });
 
 // Endpoint to add a new participant
-app.post('/participants', async (req, res) => {
-    console.log("Received POST request for /participants");
+app.post('/participant', async (req, res) => {
+    console.log("Received POST request for /participant");
     const { email, firstName, lastName, phone } = req.body;
     try {
         const result = await pool.query(

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     try {
-        const response = await fetch('/participants', {
+        const response = await fetch('/participant', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: jsonData  // Use JSON string as body
