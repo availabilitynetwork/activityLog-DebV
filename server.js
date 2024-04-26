@@ -93,6 +93,18 @@ app.post('/activities', async (req, res) => {
     }
 });
 
+// Endpoint to get all activity types
+app.get('/activity-types', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT id, type FROM activity_types ORDER BY type;'); // Adjust SQL based on your schema
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error fetching activity types:', error);
+        res.status(500).send({ message: 'Server error', error: error.message });
+    }
+});
+
+
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 

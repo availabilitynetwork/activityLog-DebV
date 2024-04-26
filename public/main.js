@@ -96,6 +96,37 @@ document.getElementById('addActivityBtn').addEventListener('click', async functi
   reader.readAsDataURL(file); // Read file as data URL
 });
 
+  async function updateActivityTypeDropdown() {
+    try {
+        const response = await fetch('/activity-types', {
+            method: 'GET'
+        });
+        if (response.ok) {
+            const activityTypes = await response.json();
+            const select = document.getElementById('selectActivityType');
+            select.innerHTML = ''; // Clear existing options
+            activityTypes.forEach(type => {
+                let option = document.createElement('option');
+                option.value = type.id;
+                option.textContent = type.type;
+                select.appendChild(option);
+            });
+            select.appendChild(new Option("Custom", "Custom")); // Simplified way to add the "Custom" option
+        } else {
+            throw new Error('Failed to fetch activity types');
+        }
+    } catch (error) {
+        console.error('Error updating activity type dropdown:', error);
+        alert('Failed to load activity types');
+    }
+}
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    updateActivityTypeDropdown(); // Call on page load to populate initially
+});
+
+
 
     document.getElementById('selectActivityType').addEventListener('change', function() {
         var customInput = document.getElementById('customActivityType');
