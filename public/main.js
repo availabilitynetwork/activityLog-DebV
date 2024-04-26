@@ -8,10 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const lastName = document.getElementById('lastName').value;
         const phone = document.getElementById('phone').value;
 
-        // File upload handling
-        const fileInput = document.getElementById('file');
-        const file = fileInput.files[0];
-
         const formData = new FormData();
         formData.append('email', email);
         formData.append('firstName', firstName);
