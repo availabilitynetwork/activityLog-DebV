@@ -108,20 +108,25 @@ async function fetchWithErrorHandling(url, options) {
 // Example of using the above function in your participant dropdown update
 async function updateParticipantDropdown() {
     try {
-        const participants = await fetchWithErrorHandling('/participants', { method: 'GET' });
-        const select = document.getElementById('selectParticipant');
-        select.innerHTML = ''; // Clear existing options
-        participants.forEach(participant => {
-            let option = new Option(`${participant.first_name} ${participant.last_name} (${participant.email})`, participant.id);
-            select.appendChild(option);
-        });
+        const response = await fetch('/participants', { method: 'GET' });
+        if (!response.ok) throw new Error('Failed to fetch, status: ' + response.status);
+        const text = await response.text();
+        try {
+            const participants = JSON.parse(text);
+            const select = document.getElementById('selectParticipant');
+            select.innerHTML = ''; // Clear existing options
+            participants.forEach(participant => {
+                let option = new Option(`${participant.first_name} ${participant.last_name} (${participant.email})`, participant.id);
+                select.appendChild(option);
+            });
+        } catch (jsonError) {
+            throw new Error('Invalid JSON response: ' + text); // Handle parsing error
+        }
     } catch (error) {
         console.error('Error updating participant dropdown:', error);
-        // Display error in UI instead of alert
         document.getElementById('participantMsg').textContent = 'Failed to load participants: ' + error.message;
     }
 }
-
 
 
 async function updateActivityTypeDropdown() {
