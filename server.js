@@ -49,7 +49,7 @@ pool.query('SELECT NOW()', (err, res) => {
 });
 
 // Endpoint to add a new participant
-app.post('/participant', async (req, res) => {
+app.post('/api/participant', async (req, res) => {
     console.log("Received POST request for /participant");
     const { email, firstName, lastName, phone } = req.body;
     try {
@@ -65,7 +65,7 @@ app.post('/participant', async (req, res) => {
     }
 });
 // Endpoint to get all participants
-app.get('/participants', async (req, res) => {
+app.get('/api/participants', async (req, res) => {
     try {
         const result = await pool.query('SELECT id, email, first_name, last_name FROM participants ORDER BY first_name, last_name;');
         console.log(result.rows); // Log the result to the console
@@ -80,7 +80,7 @@ app.get('/participants', async (req, res) => {
 
 
 // Endpoint to add a new activity
-app.post('/activities', async (req, res) => {
+app.post('/api/activities', async (req, res) => {
     console.log("Received POST request for /activities");
     const { participantId, activityType, activityDescription, caseNotes, billableHours } = req.body;
     try {
@@ -96,7 +96,7 @@ app.post('/activities', async (req, res) => {
 });
 
 // Endpoint to get all activity types
-app.get('/activity-types', async (req, res) => {
+app.get('/api/activity-types', async (req, res) => {
     try {
         const result = await pool.query('SELECT id, type FROM activity_types ORDER BY type;'); // Adjust SQL based on your schema
         res.status(200).json(result.rows);

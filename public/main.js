@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     try {
-        const response = await fetch('/participant', {
+        const response = await fetch('/api/participant', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: jsonData  // Use JSON string as body
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const fileData = event.target.result;
 
             try {
-                const response = await fetch('/activities', {
+                const response = await fetch('/api/activities', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ participantId, activityType, activityDescription, caseNotes, billableHours, fileData })
@@ -111,7 +111,7 @@ async function fetchWithErrorHandling(url, options) {
 
 async function updateParticipantDropdown() {
     try {
-        const participants = await fetchWithErrorHandling('/participants', { method: 'GET' });
+        const participants = await fetchWithErrorHandling('/api/participants', { method: 'GET' });
         const select = document.getElementById('selectParticipant');
         select.innerHTML = ''; // Clear existing options
         if (participants.length === 0) {
@@ -134,7 +134,7 @@ async function updateParticipantDropdown() {
 
 async function updateActivityTypeDropdown() {
     try {
-        const response = await fetch('/activity-types', {
+        const response = await fetch('/api/activity-types', {
             method: 'GET'
         });
         if (response.ok) {
