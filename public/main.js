@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('phone', phone);
 
         try {
-            const response = await fetch('/participants', {
+            const response = await fetch('/', {
                 method: 'POST',
                 body: formData
             });
@@ -108,7 +108,7 @@ async function fetchWithErrorHandling(url, options) {
 // Example of using the above function in your participant dropdown update
 async function updateParticipantDropdown() {
     try {
-        const response = await fetch('/participants', { method: 'GET' });
+        const response = await fetch('/', { method: 'GET' });
         if (!response.ok) throw new Error('Failed to fetch, status: ' + response.status);
         const participants = await response.json();
         const select = document.getElementById('selectParticipant');
