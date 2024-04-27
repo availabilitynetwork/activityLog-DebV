@@ -8,19 +8,25 @@ const app = express();
 // CORS configuration
 
 const corsOptions = {
-    origin: [process.env.CORS_ORIGIN, 'http://localhost:3000'], // Set this in your environment and add localhost
+    origin: function (origin, callback) {
+        if (["https://sea-turtle-app-2b56e.ondigitalocean.app/", "http://localhost:3000"].indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
     allowedHeaders: ['Content-Type', 'X-Requested-With'],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    credentials: true,
+    optionsSuccessStatus: 204 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-app.use(express.static('public'));
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Enable preflight across-the-board
 
+
+app.use(express.static('public'));
 app.use(express.json()); // Middleware to parse JSON bodies
-app.options('*', cors(corsOptions)); // Enable preflight for all routes
 
 app.use((req, res, next) => {
     console.log(`Incoming ${req.method} request to ${req.url} with headers ${JSON.stringify(req.headers)}`);
@@ -75,8 +81,6 @@ app.get('/api/participants', async (req, res) => {
         res.status(500).send({ message: 'Server error', error: error.message });
     }
 });
-
-
 
 
 // Endpoint to add a new activity

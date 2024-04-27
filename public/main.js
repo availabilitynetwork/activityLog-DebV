@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
         const response = await fetch('/api/participant', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
+            'Access-Control-Request-Method': 'POST' ,
             body: jsonData  // Use JSON string as body
         });
         if (response.ok) {
