@@ -8,10 +8,10 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Path to your certificate
-const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
+/////////////////////////////////////////////////////// Path to your certificate
+const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate(1).crt');
 
-// CORS configuration
+/////////////////////////////////////////////////////// CORS configuration
 const corsOptions = {
     origin: function (origin, callback) {
         if (["https://sea-turtle-app-2b56e.ondigitalocean.app/", "http://localhost:3000"].indexOf(origin) !== -1 || !origin) {
@@ -57,8 +57,8 @@ pool.query('SELECT NOW()', (err, res) => {
         console.log('Database connection time:', res.rows[0].now);
     }
 });
-
-// RESTful API routes
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 app.post('/api/participant', async (req, res) => {
     console.log("Received POST request for /api/participant");
     const { email, firstName, lastName, phone } = req.body;
@@ -75,7 +75,7 @@ app.post('/api/participant', async (req, res) => {
 });
 
 // Additional API endpoints...
-// Endpoint to get all participants
+///////////////////////////////////////////////////Endpoint to get all participants
 app.get('/api/participants', async (req, res) => {
     try {
         const result = await pool.query('SELECT id, email, first_name, last_name FROM participants ORDER BY first_name, last_name;');
@@ -88,7 +88,7 @@ app.get('/api/participants', async (req, res) => {
 });
 
 
-// Endpoint to add a new activity
+///////////////////////////////////////////////// Endpoint to add a new activity
 app.post('/api/activities', async (req, res) => {
     console.log("Received POST request for /activities");
     const { participantId, activityType, activityDescription, caseNotes, billableHours } = req.body;
@@ -104,7 +104,7 @@ app.post('/api/activities', async (req, res) => {
     }
 });
 
-// Endpoint to get all activity types
+//////////////////////////////////////////////// Endpoint to get all activity types
 app.get('/api/activity-types', async (req, res) => {
     try {
         const result = await pool.query('SELECT id, type FROM activity_types ORDER BY type;'); // Adjust SQL based on your schema
