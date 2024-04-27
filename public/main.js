@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+
+
+document.addEventListener('DOMContentLoaded', function () {
     // Initial function calls to populate dropdowns
     // updateParticipantDropdown();
     // updateActivityTypeDropdown();

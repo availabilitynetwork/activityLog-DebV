@@ -1,12 +1,17 @@
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
-const port = process.env.PORT || 3000; // Use environment variable or default
-const app = express();
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config();
 
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Path to your certificate
+const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 
 // CORS configuration
-
 const corsOptions = {
     origin: function (origin, callback) {
         if (["https://sea-turtle-app-2b56e.ondigitalocean.app/", "http://localhost:3000"].indexOf(origin) !== -1 || !origin) {
@@ -23,10 +28,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Enable preflight across-the-board
-
-
 app.use(express.static('public'));
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.json());
 
 app.use((req, res, next) => {
     console.log(`Incoming ${req.method} request to ${req.url} with headers ${JSON.stringify(req.headers)}`);
@@ -41,7 +44,8 @@ const pool = new Pool({
     password: process.env.DB_PASS,
     port: process.env.DB_PORT,
     ssl: {
-        rejectUnauthorized: false // Make sure to enforce SSL validation in production for security
+        rejectUnauthorized: true, // Make sure to enforce SSL validation in production for security
+        ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate
     }
 });
 
@@ -54,9 +58,9 @@ pool.query('SELECT NOW()', (err, res) => {
     }
 });
 
-// Endpoint to add a new participant
+// RESTful API routes
 app.post('/api/participant', async (req, res) => {
-    console.log("Received POST request for /participant");
+    console.log("Received POST request for /api/participant");
     const { email, firstName, lastName, phone } = req.body;
     try {
         const result = await pool.query(
@@ -67,9 +71,10 @@ app.post('/api/participant', async (req, res) => {
     } catch (error) {
         console.error('Error adding participant:', error);
         res.status(500).send({ message: 'Server error', error: error.message });
-
     }
 });
+
+// Additional API endpoints...
 // Endpoint to get all participants
 app.get('/api/participants', async (req, res) => {
     try {
@@ -110,9 +115,4 @@ app.get('/api/activity-types', async (req, res) => {
     }
 });
 
-
-
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
-
-// HostId: e80473f-nyc3d-nyc3-zg04
