@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initial function calls to populate dropdowns
-    updateParticipantDropdown();
-    updateActivityTypeDropdown();
+    // updateParticipantDropdown();
+    // updateActivityTypeDropdown();
 
     // Event listeners
     document.getElementById('participantForm').addEventListener('submit', async function(event) {
@@ -110,50 +110,50 @@ async function fetchWithErrorHandling(url, options) {
     }
 }
 
-async function updateParticipantDropdown() {
-    try {
-        const participants = await fetchWithErrorHandling('/api/participants', { method: 'GET' });
-        const select = document.getElementById('selectParticipant');
-        select.innerHTML = ''; // Clear existing options
-        if (participants.length === 0) {
-            let option = new Option("No participants available", "");
-            option.disabled = true;
-            select.appendChild(option);
-        } else {
-            participants.forEach(participant => {
-                let option = new Option(`${participant.first_name} ${participant.last_name} (${participant.email})`, participant.id);
-                select.appendChild(option);
-            });
-        }
-    } catch (error) {
-        console.error('Error updating participant dropdown:', error);
-        document.getElementById('participantMsg').textContent = `Failed to load participants: ${error.message}`;
-    }
-}
+// async function updateParticipantDropdown() {
+//     try {
+//         const participants = await fetchWithErrorHandling('/api/participants', { method: 'GET' });
+//         const select = document.getElementById('selectParticipant');
+//         select.innerHTML = ''; // Clear existing options
+//         if (participants.length === 0) {
+//             let option = new Option("No participants available", "");
+//             option.disabled = true;
+//             select.appendChild(option);
+//         } else {
+//             participants.forEach(participant => {
+//                 let option = new Option(`${participant.first_name} ${participant.last_name} (${participant.email})`, participant.id);
+//                 select.appendChild(option);
+//             });
+//         }
+//     } catch (error) {
+//         console.error('Error updating participant dropdown:', error);
+//         document.getElementById('participantMsg').textContent = `Failed to load participants: ${error.message}`;
+//     }
+// }
 
 
 
-async function updateActivityTypeDropdown() {
-    try {
-        const response = await fetch('/api/activity-types', {
-            method: 'GET'
-        });
-        if (response.ok) {
-            const activityTypes = await response.json();
-            const select = document.getElementById('selectActivityType');
-            select.innerHTML = ''; // Clear existing options
-            activityTypes.forEach(type => {
-                let option = document.createElement('option');
-                option.value = type.id;
-                option.textContent = type.type;
-                select.appendChild(option);
-            });
-            select.appendChild(new Option("Custom", "Custom")); // Simplified way to add the "Custom" option
-        } else {
-            throw new Error('Failed to fetch activity types');
-        }
-    } catch (error) {
-        console.error('Error updating activity type dropdown:', error);
-        alert('Failed to load activity types');
-    }
-}
+// async function updateActivityTypeDropdown() {
+//     try {
+//         const response = await fetch('/api/activity-types', {
+//             method: 'GET'
+//         });
+//         if (response.ok) {
+//             const activityTypes = await response.json();
+//             const select = document.getElementById('selectActivityType');
+//             select.innerHTML = ''; // Clear existing options
+//             activityTypes.forEach(type => {
+//                 let option = document.createElement('option');
+//                 option.value = type.id;
+//                 option.textContent = type.type;
+//                 select.appendChild(option);
+//             });
+//             select.appendChild(new Option("Custom", "Custom")); // Simplified way to add the "Custom" option
+//         } else {
+//             throw new Error('Failed to fetch activity types');
+//         }
+//     } catch (error) {
+//         console.error('Error updating activity type dropdown:', error);
+//         alert('Failed to load activity types');
+//     }
+// }
