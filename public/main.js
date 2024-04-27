@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
             updateParticipantDropdown(); // Update dropdown after adding a participant
         } else {
             const text = await response.text();
-            console.error("Failed to add participant, working on Database connection :):");
-            throw new Error(text);
+            console.error("Failed to add participant, working on Database connection :):", text);
+            throw new Error("Failed to add participant, working on Database connection :):");
         }
     } catch (error) {
         alert(error.message);
