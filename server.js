@@ -63,7 +63,7 @@ pool.query('SELECT NOW()', (err, res) => {
 //////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 // 
 
-app.get('/api/participant', async (req, res) => {
+app.get('/api/participants', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM participants'); // Make sure this matches your table name
         res.json(result.rows); // This will automatically be an array if there are rows
