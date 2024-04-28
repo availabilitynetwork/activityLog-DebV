@@ -58,7 +58,7 @@ pool.query('SELECT NOW()', (err, res) => {
     }
 });
 
-app.get('/test-db', async (req, res) => {
+app.get('/api/test-db', async (req, res) => {
     try {
         const dbRes = await pool.query('SELECT NOW()');
         res.json({ success: true, time: dbRes.rows[0].now });
