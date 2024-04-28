@@ -1,23 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch activity log data and populate the table
     async function fetchActivityLog() {
-    try {
-        const response = await fetch("/api/activity-log/");
-        console.log(response);
-        if (response.ok) {
-            const responseBody = await response.text(); // Read response body as text
-            console.log('Response Body:', responseBody);
-            const activityLog = JSON.parse(responseBody); // Attempt to parse as JSON
-            console.log('Parsed Activity Log:', activityLog);
-            populateActivityLog(activityLog);
-        } else {
-            console.error('Failed to fetch activity log:', response.statusText);
+        try {
+            const response = await fetch("/api/activity-log/");
+            console.log(response);
+            if (response.ok) {
+                const responseBody = await response.json(); // Parse response as JSON
+                console.log('Activity Log:', responseBody);
+                populateActivityLog(responseBody);
+            } else {
+                console.error('Failed to fetch activity log:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching activity log:', error);
         }
-    } catch (error) {
-        console.error('Error fetching activity log:', error);
     }
-}
-
 
     // Function to populate the activity log table with data
     function populateActivityLog(activityLog) {
