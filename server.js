@@ -65,12 +65,14 @@ pool.query('SELECT NOW()', (err, res) => {
 app.get('/api/participants', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM participants');
-        res.json(result.rows);  // Ensure this sends an array
+        res.setHeader('Content-Type', 'application/json'); // Explicitly setting the Content-Type
+        res.json(result.rows); // Sends the result as JSON
     } catch (err) {
         console.error('Failed to retrieve data:', err);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 
