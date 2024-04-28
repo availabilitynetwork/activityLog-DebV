@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 const text = await response.text();
                 console.error("Failed to add participant:", text); // Log the error
-                throw new Error('textFailed to add participant' || text);
+                throw new Error('Failed to add participant || database in progress' || text);
             }
         } catch (error) {
             alert(error.message);
