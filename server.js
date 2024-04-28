@@ -1,4 +1,6 @@
 const express = require('express');
+const { getActivityLog } = require('./database'); // Import the getActivityLog function from your database module
+
 const { Pool } = require('pg');
 const cors = require('cors');
 const fs = require('fs');
@@ -62,20 +64,15 @@ pool.query('SELECT NOW()', (err, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 // 
-app.get('/api/participants', async (req, res) => {
+// Route to fetch activity log data
+app.get('/api/activity-log', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM participants');
-        res.setHeader('Content-Type', 'application/json'); // Explicitly setting the Content-Type
-        res.json(result.rows); // Sends the result as JSON
-    } catch (err) {
-        console.error('Failed to retrieve data:', err);
-        res.status(500).json({ message: 'Internal server error' });
+        const activityLog = await getActivityLog();
+        res.json(activityLog);
+    } catch (error) {
+        console.error('Error fetching activity log:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
-
-
-
-// app.use(express.static('public'));
-
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
