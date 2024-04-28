@@ -49,6 +49,10 @@ app.get('/api/activity-log', async (req, res) => {
     }
 });
 
-// Mount the activityLogRoutes on the /api/activity-log path
-app.use('/api/activity-log', activityLogRoutes);
+const activityLogRoutes = require('./api/activityLogRoutes');
+
+// Mount the activityLogRoutes on the /api/activity-log/ path
+app.use('/api/activity-log/', activityLogRoutes);
+
+
 app.listen(port, () => console.log(`Server running on port ${port}`));

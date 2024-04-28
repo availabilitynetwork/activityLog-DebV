@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getActivityLog } = require('./database'); // Import the getActivityLog function from your database module
+const { getActivityLog } = require('../database');
 
 // Route to fetch activity log data
 router.get('/', async (req, res) => {
@@ -14,6 +14,3 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
-
-
-
