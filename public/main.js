@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: '/api/participants',  // Make sure this endpoint is correct
+        url: '/api/participants',
         type: 'GET',
         success: function(data) {
             let content = '';

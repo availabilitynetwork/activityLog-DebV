@@ -62,16 +62,16 @@ pool.query('SELECT NOW()', (err, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 // 
-
 app.get('/api/participants', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM participants'); // Make sure this matches your table name
-        res.json(result.rows); // This will automatically be an array if there are rows
+        const result = await pool.query('SELECT * FROM participants');
+        res.json(result.rows);  // Ensure this sends an array
     } catch (err) {
         console.error('Failed to retrieve data:', err);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 
