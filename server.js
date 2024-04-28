@@ -28,7 +28,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Enable preflight across-the-board
-app.use(express.static('public'));
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -75,7 +75,7 @@ app.get('/api/participants', async (req, res) => {
 
 
 
-
+app.use(express.static('public'));
 
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
