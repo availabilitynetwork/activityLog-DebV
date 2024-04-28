@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch activity log data and populate the table
     async function fetchActivityLog() {
         try {
-            const response = await fetch('/api/activity-log');
+            const response = await fetch('/api/activity-log/');
             if (response.ok) {
                 const activityLog = await response.json();
                 populateActivityLog(activityLog);

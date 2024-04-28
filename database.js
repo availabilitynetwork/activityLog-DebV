@@ -1,8 +1,10 @@
 const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
+
 /////////////////////////////////////////////////////// Path to your certificate
 const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
+
 // PostgreSQL connection pool setup
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -35,14 +37,17 @@ async function getActivityLog() {
             INNER JOIN participants p ON a.participant_id = p.participant_id
             ORDER BY a.activity_date DESC
         `);
-        return result.rows;
-    } catch (error) {
-        console.error('Error fetching activity log:', error);
-        throw error; // Rethrow the error to be caught by the caller
+        
+        // Format the data into an array of objects with the specified properties
+        return result.rows.map(row => ({
+            email: row.email,
+            activity_type: row.activity_type,
+            case_notes: row.case_notes,
+            billable_hours: row.billable_hours
+        }));
     } finally {
-        // Do not release the client here, let the caller handle it
+        
     }
 }
 
 module.exports = { getActivityLog };
-
