@@ -49,33 +49,30 @@ const pool = new Pool({
     }
 });
 
-
 // Test database connectivity on start-up
-app.get('/api/participant', async (req, res) => {
-    try {
-        const result = await pool.query('SELECT * FROM participants');  // Ensure correct table name
-        res.json([result.rows]); // Wrap result.rows in an array if it's not already
-    } catch (err) {
-        console.error('Failed to retrieve data:', err);
-        res.status(500).json({ message: 'Internal server error' });
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('Database connection error:', err.message);
+        process.exit(1); // Exit the script with an error code
+    } else {
+        console.log('Database connection successful:', res.rows[0].now);
+        process.exit(0); // Exit the script successfully
     }
 });
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 // 
 
-app.get('/api/test-db', async (req, res) => {
+app.get('/api/participant', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM your_table'); // Adjust SQL query as needed
-        res.json(result.rows);
+        const result = await pool.query('SELECT * FROM participants'); // Make sure this matches your table name
+        res.json(result.rows); // This will automatically be an array if there are rows
     } catch (err) {
         console.error('Failed to retrieve data:', err);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 
