@@ -49,6 +49,7 @@ const pool = new Pool({
     }
 });
 
+
 // Test database connectivity on start-up
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
@@ -59,20 +60,6 @@ pool.query('SELECT NOW()', (err, res) => {
         process.exit(0); // Exit the script successfully
     }
 });
-app.get('/api/test-db', async (req, res) => {
-    try {
-        const dbRes = await pool.query('SELECT NOW()');
-        res.json({ success: true, time: dbRes.rows[0].now });
-    } catch (err) {
-        console.error('Database connection error:', err);
-        res.status(500).json({
-            success: false, 
-            message: 'Failed to connect to the database. Error: ' + err.message // Provide a clear error message
-        });
-    }
-});
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 // 
