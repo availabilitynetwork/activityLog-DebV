@@ -53,13 +53,14 @@ const pool = new Pool({
 // Test database connectivity on start-up
 app.get('/api/participant', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM participants'); // Correct table name
-        res.json(result.rows); // Sends the array of participants
+        const result = await pool.query('SELECT * FROM participants');  // Ensure correct table name
+        res.json([result.rows]); // Wrap result.rows in an array if it's not already
     } catch (err) {
         console.error('Failed to retrieve data:', err);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
