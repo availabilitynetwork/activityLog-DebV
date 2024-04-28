@@ -1,17 +1,10 @@
 const express = require('express');
 const { getActivityLog } = require('./database'); // Import the getActivityLog function from your database module
-
-const { Pool } = require('pg');
 const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
+const activityLogRoutes = require('./api/activity-log/activityLogRoutes'); // Import the activityLogRoutes
 require('dotenv').config();
-
 const app = express();
 const port = process.env.PORT || 3000;
-
-/////////////////////////////////////////////////////// Path to your certificate
-const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 
 /////////////////////////////////////////////////////// CORS configuration
 const corsOptions = {
@@ -38,29 +31,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// PostgreSQL connection pool setup
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-    ssl: {
-        rejectUnauthorized: true, // Make sure to enforce SSL validation in production for security
-        ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate
-    }
-});
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
 
-// Test database connectivity on start-up
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('Database connection error:', err.message);
-        process.exit(1); // Exit the script with an error code
-    } else {
-        console.log('Database connection successful:', res.rows[0].now);
-        process.exit(0); // Exit the script successfully
-    }
-});
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 // 
@@ -68,6 +41,7 @@ pool.query('SELECT NOW()', (err, res) => {
 app.get('/api/activity-log', async (req, res) => {
     try {
         const activityLog = await getActivityLog();
+        console.log('Activity Log:', activityLog); // Log the activity log before sending it
         res.json(activityLog);
     } catch (error) {
         console.error('Error fetching activity log:', error);
@@ -75,4 +49,6 @@ app.get('/api/activity-log', async (req, res) => {
     }
 });
 
+// Mount the activityLogRoutes on the /api/activity-log path
+app.use('/api/activity-log', activityLogRoutes);
 app.listen(port, () => console.log(`Server running on port ${port}`));
