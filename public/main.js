@@ -1,20 +1,21 @@
-$(function() {
-    $.ajax({
-        url: '/api/participants',
-        type: 'GET',
-        success: function(data) {
+$.ajax({
+    url: '/api/participants',
+    type: 'GET',
+    success: function(data) {
+        console.log('Received data:', data);  // Check the actual received data
+        console.log('Is array:', Array.isArray(data));  // Check if data is an array
+        if (Array.isArray(data)) {
             let content = '';
-            if (data.length > 0) {
-                data.forEach(item => {
-                    content += `<p>Name: ${item.name}, Email: ${item.email}</p>`;
-                });
-            } else {
-                content = "<p>No participant data found.</p>";
-            }
+            data.forEach(item => {
+                content += `<p>Name: ${item.name}, Email: ${item.email}</p>`;
+            });
             $('#data-container').html(content);
-        },
-        error: function() {
-            $('#data-container').html('Failed to load participant data.');
+        } else {
+            $('#data-container').html('<p>Received data is not an array.</p>');
         }
-    });
+    },
+    error: function(xhr, status, error) {
+        console.error('Error:', error);
+        $('#data-container').html('Failed to load data: ' + error);
+    }
 });
