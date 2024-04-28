@@ -36,9 +36,13 @@ async function getActivityLog() {
             ORDER BY a.activity_date DESC
         `);
         return result.rows;
+    } catch (error) {
+        console.error('Error fetching activity log:', error);
+        throw error; // Rethrow the error to be caught by the caller
     } finally {
-        client.release();
+        // Do not release the client here, let the caller handle it
     }
 }
 
 module.exports = { getActivityLog };
+
