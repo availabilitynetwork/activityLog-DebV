@@ -52,19 +52,11 @@ const pool = new Pool({
 // Test database connectivity on start-up
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
-        console.error('Error testing the database connection:', err);
+        console.error('Database connection error:', err.message);
+        process.exit(1); // Exit the script with an error code
     } else {
-        console.log('Database connection time:', res.rows[0].now);
-    }
-});
-
-app.get('/api/test-db', async (req, res) => {
-    try {
-        const dbRes = await pool.query('SELECT NOW()');
-        res.json({ success: true, time: dbRes.rows[0].now });
-    } catch (err) {
-        console.error('Database connection error:', err);
-        res.status(500).json({ success: false, message: 'Failed to connect to the database.' });
+        console.log('Database connection successful:', res.rows[0].now);
+        process.exit(0); // Exit the script successfully
     }
 });
 
