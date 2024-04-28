@@ -5,78 +5,77 @@ document.addEventListener('DOMContentLoaded', function () {
     // updateParticipantDropdown();
     // updateActivityTypeDropdown();
 
-    // Event listeners
-    document.getElementById('participantForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
+     // Event listener for submitting a participant
+    document.getElementById('submitParticipantBtn').addEventListener('click', async function() {
+        const email = document.getElementById('email').value;
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const phone = document.getElementById('phone').value;
 
-    const email = document.getElementById('email').value;
-    const firstName = document.getElementById('firstName').value;
-    const lastName = document.getElementById('lastName').value;
-    const phone = document.getElementById('phone').value;
-
-    // Create a JSON object from the form fields
-    const jsonData = JSON.stringify({
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone
+        try {
+            const response = await fetch('/participants', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, firstName, lastName, phone })
+            });
+            if (response.ok) {
+                const data = await response.json();
+                alert('Participant added successfully');
+                
+                // Update readonly fields with participant ID and registration date
+                document.getElementById('participantId').value = data.participant_id;
+                document.getElementById('registrationDate').value = data.registration_date;
+            } else {
+                const text = await response.text();
+                console.error("Failed to add participant:", text); // Log the error
+                throw new Error(text || 'Failed to add participant');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     });
 
-    try {
-        const response = await fetch('/api/participant', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            'Access-Control-Request-Method': 'POST' ,
-            body: jsonData  // Use JSON string as body
-        });
-        if (response.ok) {
-            const data = await response.json();
-            console.log("Participant added successfully:", data);
-            alert('Participant added successfully');
-            updateParticipantDropdown(); // Update dropdown after adding a participant
-        } else {
-            const text = await response.text();
-            console.error("Failed to add participant, working on Database connection :):", text);
-            throw new Error("Failed to add participant, working on Database connection :):");
-        }
-    } catch (error) {
-        alert(error.message);
-    }
-});
 
-
+    // Event listener for adding an activity
     document.getElementById('addActivityBtn').addEventListener('click', async function() {
         const participantId = document.getElementById('selectParticipant').value;
         const activityType = document.getElementById('selectActivityType').value;
         const activityDescription = document.getElementById('activityDescription').value;
         const caseNotes = document.getElementById('caseNotes').value;
         const billableHours = document.getElementById('billableHours').value;
-
-        const fileInput = document.getElementById('fileUpload');
-        const file = fileInput.files[0];
-
-        const reader = new FileReader();
-        reader.onload = async function(event) {
-            const fileData = event.target.result;
-
-            try {
-                const response = await fetch('/api/activities', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ participantId, activityType, activityDescription, caseNotes, billableHours, fileData })
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    alert('Activity added successfully');
-                } else {
-                    const text = await response.text();
-                    throw new Error(text);
-                }
-            } catch (error) {
-                alert(error.message);
+        const fileUpload = document.getElementById('fileUpload').files[0]; // Get the uploaded file
+        
+        // Create a FormData object to send data including files
+        const formData = new FormData();
+        formData.append('participantId', participantId);
+        formData.append('activityType', activityType);
+        formData.append('activityDescription', activityDescription);
+        formData.append('caseNotes', caseNotes);
+        formData.append('billableHours', billableHours);
+        formData.append('fileUpload', fileUpload); // Append the uploaded file
+        
+        try {
+            const response = await fetch('/activities', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                const data = await response.json();
+                alert('Activity added successfully');
+                
+                // Update readonly fields with activity ID, file ID, and upload date
+                document.getElementById('activityId').value = data.activity_id;
+                document.getElementById('fileId').value = data.file_id;
+                document.getElementById('uploadDate').value = data.upload_date;
+            } else {
+                const text = await response.text();
+                throw new Error(text || 'Failed to add activity');
             }
-        };
-        reader.readAsDataURL(file);
+        } catch (error) {
+            alert(error.message);
+        }
     });
 
     document.getElementById('selectActivityType').addEventListener('change', function() {
