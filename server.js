@@ -51,19 +51,30 @@ const pool = new Pool({
 
 
 // Test database connectivity on start-up
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('Database connection error:', err.message);
-        process.exit(1); // Exit the script with an error code
-    } else {
-        console.log('Database connection successful:', res.rows[0].now);
-        process.exit(0); // Exit the script successfully
+app.get('/api/participant', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM participants'); // Correct table name
+        res.json(result.rows); // Sends the array of participants
+    } catch (err) {
+        console.error('Failed to retrieve data:', err);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////// RESTful API routes///////////////////////////////////////////////////////////////
 // 
 
+app.get('/api/test-db', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM your_table'); // Adjust SQL query as needed
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Failed to retrieve data:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 
 
