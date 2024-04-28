@@ -1,8 +1,7 @@
-
-  $(document).ready(function() {
+ $(document).ready(function() {
     $("#testDbButton").click(function() {
       $.ajax({
-        url: '/test-db',
+        url: '/api/test-db', // Update this line to match the new route
         type: 'GET',
         success: function(response) {
           if (response.success) {
@@ -17,4 +16,3 @@
       });
     });
   });
-
