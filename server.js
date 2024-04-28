@@ -49,8 +49,6 @@ app.get('/api/activity-log', async (req, res) => {
     }
 });
 
-const activityLogRoutes = require('./api/activityLogRoutes');
-
 // Mount the activityLogRoutes on the /api/activity-log/ path
 app.use('/api/activity-log/', activityLogRoutes);
 
