@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { getActivityLog } = require('../database');
 
 // Route to fetch activity log data
-router.get('/', async (req, res) => {
+router.get('./', async (req, res) => {
     try {
         const activityLog = await getActivityLog();
         res.json(activityLog);
