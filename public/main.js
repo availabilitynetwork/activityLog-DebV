@@ -2,8 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // Initial function calls to populate dropdowns
-    // updateParticipantDropdown();
-    // updateActivityTypeDropdown();
+    updateParticipantDropdown();
+    updateActivityTypeDropdown();
 
      // Event listener for submitting a participant
     document.getElementById('submitParticipantBtn').addEventListener('click', async function (event) {
