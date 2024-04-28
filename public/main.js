@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // updateActivityTypeDropdown();
 
      // Event listener for submitting a participant
-    document.getElementById('submitParticipantBtn').addEventListener('click', async function() {
+    document.getElementById('submitParticipantBtn').addEventListener('click', async function (event) {
+        event.preventDefault();
         const email = document.getElementById('email').value;
         const firstName = document.getElementById('firstName').value;
         const lastName = document.getElementById('lastName').value;
