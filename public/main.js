@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
     $.ajax({
         url: '/api/participants',
         type: 'GET',
