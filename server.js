@@ -1,7 +1,9 @@
 const express = require('express');
-const { getActivityLog } = require('./database'); // Import the getActivityLog function from your database module
+const { getActivityLog } = require('/database');
+ // Import the getActivityLog function from your database module
 const cors = require('cors');
-const activityLogRoutes = require('./api/activity-log/activityLogRoutes'); // Import the activityLogRoutes
+const activityLogRoutes = require('/api/activity-log/activityLogRoutes.js'); // Import the activityLogRoutes
+
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -50,7 +52,6 @@ app.get('/api/activity-log', async (req, res) => {
 });
 
 // Mount the activityLogRoutes on the /api/activity-log/ path
-app.use('/api/activity-log/', activityLogRoutes);
-
+app.use('/api/activity-log', activityLogRoutes); // Here we mount the activityLogRoutes
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

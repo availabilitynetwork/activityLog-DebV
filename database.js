@@ -37,17 +37,13 @@ async function getActivityLog() {
             INNER JOIN participants p ON a.participant_id = p.participant_id
             ORDER BY a.activity_date DESC
         `);
-        
-        // Format the data into an array of objects with the specified properties
-        return result.rows.map(row => ({
-            email: row.email,
-            activity_type: row.activity_type,
-            case_notes: row.case_notes,
-            billable_hours: row.billable_hours
-        }));
+        return result.rows;
+    } catch (error) {
+        throw error;
     } finally {
-        
+        client.release();
     }
 }
 
 module.exports = { getActivityLog };
+
