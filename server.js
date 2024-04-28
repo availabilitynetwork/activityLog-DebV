@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 /////////////////////////////////////////////////////// Path to your certificate
-const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate(1).crt');
+const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 
 /////////////////////////////////////////////////////// CORS configuration
 const corsOptions = {
