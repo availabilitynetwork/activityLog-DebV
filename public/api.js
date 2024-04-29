@@ -1,9 +1,8 @@
-// Function to fetch activity log data and populate the table
 async function fetchActivityLog() {
     try {
-        const response = await fetch("/activity-log");
+        const response = await fetch("/api/activity-log");
         if (response.ok) {
-            const activityLog = await response.json(); // Parse response as JSON
+            const activityLog = await response.json();
             populateActivityLog(activityLog);
         } else {
             console.error('Failed to fetch activity log:', response.statusText);
@@ -13,10 +12,9 @@ async function fetchActivityLog() {
     }
 }
 
-// Function to populate the activity log table with data
 function populateActivityLog(activityLog) {
     const activityLogBody = document.getElementById('activityLogBody');
-    activityLogBody.innerHTML = ''; // Clear existing rows
+    activityLogBody.innerHTML = '';
 
     activityLog.forEach(activity => {
         const row = document.createElement('tr');
@@ -31,5 +29,4 @@ function populateActivityLog(activityLog) {
     });
 }
 
-// Initial function call to fetch and populate activity log data
 fetchActivityLog();
