@@ -20,7 +20,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Mount the router at /api/activity-log
-app.use('/api', apiRouter);
+app.use('/activity-log', apiRouter);
 
 const port = process.env.PORT || 3000;
 
