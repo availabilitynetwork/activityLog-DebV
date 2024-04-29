@@ -1,9 +1,22 @@
-// Inside apiRouter.js
 const express = require('express');
 const router = express.Router();
+const { Pool } = require('pg');
+
+// PostgreSQL connection pool setup with SSL configuration
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+    ssl: {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync('./certs/ca-certificate.crt').toString(), 
+    },
+});
 
 // Route to fetch activity log data
-router.get('/api/activity-log', async (req, res) => {
+router.get('/activity-log', async (req, res) => {
     try {
         const client = await pool.connect();
         const result = await client.query(`

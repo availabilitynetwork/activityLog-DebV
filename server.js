@@ -1,13 +1,10 @@
 const express = require('express');
 const apiRouter = require('./apiRouter');
 const cors = require('cors');
-const { Pool } = require('pg');
-const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
-//const router = require('./public/api');
-dotenv.config();
 
+dotenv.config();
 const app = express();
 
 // Define CORS options
@@ -22,7 +19,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Mount the router at /api/activity-log
-app.use('/', apiRouter);
+app.use('/api', apiRouter);
 
 const port = process.env.PORT || 3000;
 
@@ -32,29 +29,6 @@ app.use(express.json());
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
-
-// PostgreSQL connection pool setup with SSL configuration
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-    ssl: {
-        rejectUnauthorized: true,
-        ca: fs.readFileSync('./certs/ca-certificate.crt').toString(), 
-    },
-});
-
-// Test database connectivity on start-up
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('Database connection error:', err.message);
-    } else {
-        console.log('Database connection successful:', res.rows[0].now);
-    }
-});
-
 
 // Start the server
 app.listen(port, () => {

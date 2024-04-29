@@ -1,7 +1,7 @@
 // Function to fetch activity log data and populate the table
 async function fetchActivityLog() {
     try {
-        const response = await fetch("/activity-log");
+        const response = await fetch("/api/activity-log");
         if (response.ok) {
             const activityLog = await response.json(); // Parse response as JSON
             populateActivityLog(activityLog);
