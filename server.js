@@ -1,20 +1,39 @@
 const express = require('express');
+const apiRouter = require('./apiRouter');
 const cors = require('cors');
 const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
-
-const activityLogRoutes = require('./api/activity-log/activityLogRoutes');
-
-require('dotenv').config();
+const dotenv = require('dotenv');
+//const router = require('./public/api');
+dotenv.config();
 
 const app = express();
+
+// Define CORS options
+const corsOptions = {
+  origin: 'https://db-piper64-do-user-13917218-0.c.db.ondigitalocean.com', // Specify the origin(s) allowed to make requests
+  methods: 'GET,POST', // Specify the HTTP methods allowed
+  allowedHeaders: 'Content-Type,Authorization', // Specify the allowed headers
+  credentials: true // Enable credentials (cookies, authorization headers, etc.)
+};
+
+// Use CORS middleware with the specified options
+app.use(cors(corsOptions));
+
+// Mount the router at /api/activity-log
+app.use('/', apiRouter);
+
 const port = process.env.PORT || 3000;
 
-/////////////////////////////////////////////////////// Path to your certificate
-const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-// PostgreSQL connection pool setup
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// PostgreSQL connection pool setup with SSL configuration
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
@@ -23,69 +42,21 @@ const pool = new Pool({
     port: process.env.DB_PORT,
     ssl: {
         rejectUnauthorized: true,
-        ca: fs.readFileSync(caCertificatePath).toString()
-    }
+        ca: fs.readFileSync('./certs/ca-certificate.crt').toString(), 
+    },
 });
 
 // Test database connectivity on start-up
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error('Database connection error:', err.message);
-        process.exit(1);
     } else {
         console.log('Database connection successful:', res.rows[0].now);
     }
 });
 
-// CORS configuration
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (["https://sea-turtle-app-2b56e.ondigitalocean.app/", "http://localhost:3000"].indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'X-Requested-With'],
-    credentials: true,
-    optionsSuccessStatus: 204
-};
 
-// Use cors middleware
-app.use(cors(corsOptions));
-
-app.use(express.json());
-
-app.use((req, res, next) => {
-    console.log(`Incoming ${req.method} request to ${req.url} with headers ${JSON.stringify(req.headers)}`);
-    next();
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
-
-// Serve static files from the 'public' directory
-app.use(express.static('public'));
-
-// Route to fetch activity log data
-app.get('/api/activity-log', async (req, res) => {
-    try {
-        const client = await pool.connect();
-        const result = await client.query(`
-            SELECT p.email, a.activity_type, a.case_notes, a.billable_hours
-            FROM activities a
-            INNER JOIN participants p ON a.participant_id = p.participant_id
-            ORDER BY a.activity_date DESC
-        `);
-        const activityLog = result.rows;
-        client.release();
-        console.log('Activity Log:', activityLog);
-        res.json(activityLog);
-    } catch (error) {
-        console.error('Error fetching activity log:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
-
-// Mount the activityLogRoutes on the /api/activity-log/ path
-app.use('/api/activity-log', activityLogRoutes);
-
-app.listen(port, () => console.log(`Server running on port ${port}`));
