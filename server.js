@@ -23,10 +23,11 @@ app.use(cors(corsOptions));
 app.use(morgan('dev'));
 
 //Endpoint to fetch activity log data
-//Endpoint to fetch activity log data
 app.get('/api/activity-log', async (req, res) => {
     try {
+        console.log("Fetching activity log...");
         const activityLog = await getActivityLog(); // This line calls the getActivityLog function
+        console.log("Activity log fetched successfully.");
         res.json(activityLog);
     } catch (error) {
         console.error('Error fetching activity log:', error);
@@ -45,4 +46,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Start the server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+});
+// Error handling for unhandled rejections
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });

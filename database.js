@@ -9,11 +9,10 @@ const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 
 // PostgreSQL connection pool setup
 const pool = new Pool({
-    // user: process.env.DB_USER, // Comment out the user
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASS,
-    port: 25060, // Update the port here
+    port: process.env.DB_PORT,
     ssl: {
         rejectUnauthorized: true, // Make sure to enforce SSL validation in production for security
         ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate
@@ -33,12 +32,14 @@ pool.query('SELECT NOW()', (err, res) => {
 async function getActivityLog() {
     const client = await pool.connect();
     try {
+        console.log("Fetching activity log from database...");
         const result = await client.query(`
             SELECT * FROM participants
         `);
         console.log('Fetched participant data:', result.rows); // Logging fetched data to console
         return result.rows;
     } catch (error) {
+        console.error('Error fetching activity log from database:', error);
         throw error;
     } finally {
         client.release();
