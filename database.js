@@ -21,6 +21,7 @@ const pool = new Pool({
 
 // Test database connectivity on start-up
 pool.query('SELECT NOW()', (err, res) => {
+    console.log('Inside callback function'); // Add this line for debugging
     if (err) {
         console.error('Database connection error:', err.message);
         process.exit(1); // Exit the script with an error code
