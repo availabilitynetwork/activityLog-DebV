@@ -12,11 +12,12 @@ const pool = new Pool({
     database: process.env.DB_NAME,
     password: process.env.DB_PASS,
     port: process.env.DB_PORT,
-    ssl: {
+    ssl: process.env.NODE_ENV === 'production' ? {
         rejectUnauthorized: true, // Make sure to enforce SSL validation in production for security
         ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate
-    }
+    } : false
 });
+
 
 // Test database connectivity on start-up
 pool.query('SELECT NOW()', (err, res) => {
