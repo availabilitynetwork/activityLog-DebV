@@ -36,9 +36,23 @@ async function getActivityLog() {
     try {
         console.log("Fetching activity log from database...");
         const result = await client.query(`
-            SELECT * FROM participants
+            SELECT 
+                a.activity_date, 
+                a.activity_type, 
+                a.case_notes, 
+                a.billable_hours, 
+                p.email, 
+                p.last_name, 
+                p.phone, 
+                p.registration_date
+            FROM 
+                activities a
+            INNER JOIN 
+                participants p ON a.participant_id = p.participant_id
+            ORDER BY 
+                a.activity_date DESC
         `);
-        console.log('Fetched participant data:', result.rows); // Logging fetched data to console
+        console.log('Fetched activity log data:', result.rows); // Logging fetched data to console
         return result.rows;
     } catch (error) {
         console.error('Error fetching activity log from database:', error);
@@ -47,6 +61,7 @@ async function getActivityLog() {
         client.release();
     }
 }
+
 
 
 module.exports = { getActivityLog };
