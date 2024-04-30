@@ -62,6 +62,4 @@ async function getActivityLog() {
     }
 }
 
-
-
 module.exports = { getActivityLog };
