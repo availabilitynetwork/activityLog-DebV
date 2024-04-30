@@ -1,8 +1,9 @@
 const express = require('express');
-const apiRouter = require('./apiRouter');
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
+const morgan = require('morgan'); // Import morgan middleware
+const { getActivityLog } = require('./database'); // Import database module
 
 dotenv.config();
 const app = express();
@@ -18,8 +19,19 @@ const corsOptions = {
 // Use CORS middleware with the specified options
 app.use(cors(corsOptions));
 
-// Mount the router at /api
-app.use('/api', apiRouter);
+// Use morgan middleware to log requests
+app.use(morgan('dev'));
+
+// Endpoint to fetch activity log data
+app.get('/api/activity-log', async (req, res) => {
+    try {
+        const activityLog = await getActivityLog();
+        res.json(activityLog);
+    } catch (error) {
+        console.error('Error fetching activity log:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 
 const port = process.env.PORT || 3000;
 
