@@ -1,3 +1,4 @@
+console.log("Database.js file is being executed...");
 const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
@@ -29,7 +30,7 @@ pool.query('SELECT NOW()', (err, res) => {
         console.log('Database connection successful:', res.rows[0].now);
     }
 });
-
+console.log("Database.js setup completed.");
 async function getActivityLog() {
     const client = await pool.connect();
     try {

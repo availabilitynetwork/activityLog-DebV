@@ -35,14 +35,13 @@ app.get('/api/activity-log', async (req, res) => {
     }
 });
 
-
-const port = process.env.PORT || 3000;
-
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+const port = process.env.PORT || 3000;
 // Start the server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
