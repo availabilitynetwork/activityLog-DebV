@@ -22,16 +22,18 @@ app.use(cors(corsOptions));
 // Use morgan middleware to log requests
 app.use(morgan('dev'));
 
-// Endpoint to fetch activity log data
+//Endpoint to fetch activity log data
+//Endpoint to fetch activity log data
 app.get('/api/activity-log', async (req, res) => {
     try {
-        const activityLog = await getActivityLog();
+        const activityLog = await getActivityLog(); // This line calls the getActivityLog function
         res.json(activityLog);
     } catch (error) {
         console.error('Error fetching activity log:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 const port = process.env.PORT || 3000;
 
