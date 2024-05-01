@@ -16,6 +16,9 @@
     "morgan": "^1.10.0",
     "pg": "^8.11.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-loader": "^9.1.3",
+    "parcel": "^2.0.0-rc.0"
+  },
   "description": ""
 }
