@@ -1,32 +1,30 @@
-// async function fetchActivityLog() {
-//     try {
-//         const response = await fetch("/api/activity-log");
-//         if (response.ok) {
-//             const activityLog = await response.json();
-//             populateActivityLog(activityLog);
-//         } else {
-//             console.error('Failed to fetch activity log:', response.statusText);
-//         }
-//     } catch (error) {
-//         console.error('Error fetching activity log:', error);
-//     }
-// }
+const express = require('express');
+const cors = require('cors');
+const { getActivityLog } = require('./database'); // Import database module
+const router = express.Router();
 
-// function populateActivityLog(activityLog) {
-//     const activityLogBody = document.getElementById('activityLogBody');
-//     activityLogBody.innerHTML = '';
+// Define CORS options
+const corsOptions = {
+  origin: 'https://db-piper64-do-user-13917218-0.c.db.ondigitalocean.com',
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type,Authorization',
+  credentials: true
+};
 
-//     activityLog.forEach(activity => {
-//         const row = document.createElement('tr');
-//         row.innerHTML = `
-//             <td>${activity.participant_id}</td>
-//             <td>${activity.email}</td>
-//             <td>${activity.activity_type}</td>
-//             <td>${activity.case_notes}</td>
-//             <td>${activity.billable_hours}</td>
-//         `;
-//         activityLogBody.appendChild(row);
-//     });
-// }
+// Use CORS middleware with the specified options
+router.use(cors(corsOptions));
 
-// fetchActivityLog();
+//Endpoint to fetch activity log data
+router.get('/api/activity-log', async (req, res) => {
+    try {
+        console.log("Fetching activity log...");
+        const activityLog = await getActivityLog(); // This line calls the getActivityLog function
+        console.log("Activity log fetched successfully.");
+        res.json(activityLog);
+    } catch (error) {
+        console.error('Error fetching activity log:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+module.exports = router;
