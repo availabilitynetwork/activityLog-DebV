@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { getActivityLog } = require('./database'); // Import database module
+const { getActivityLog } = require('../database'); // Import database module
 const router = express.Router();
 
 // Define CORS options

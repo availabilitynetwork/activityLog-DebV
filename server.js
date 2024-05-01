@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan'); // Import morgan middleware
-const apiRouter = require('./api'); // Import the API router from api.js
+const apiRouter = require('./public/api'); // Import the API router from api.js
 
 dotenv.config();
 const app = express();
