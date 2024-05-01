@@ -1,4 +1,4 @@
 node_modules
 .cache/
 .cache-loader/
-.parcel-cache
+.parcel-cache/
