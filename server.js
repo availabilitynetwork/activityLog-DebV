@@ -3,7 +3,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
-const apiRouter = require('./routes/apiRouter'); // Make sure this path matches the location of your apiRouter file
+const apiRouter = require('./routes/api'); // Make sure this path matches the location of your apiRouter file
 
 dotenv.config(); // Load environment variables from .env file
 
