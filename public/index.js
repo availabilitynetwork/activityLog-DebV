@@ -2,7 +2,7 @@
 
 // Fetch data from the server and populate the table
       async function fetchData() {
-        const response = await fetch("");
+        const response = await fetch("/api");
         const data = await response.json();
 
         const tbody = document.getElementById("activityLogBody");

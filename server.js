@@ -3,7 +3,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
-const apiRouter = require('./routes/api'); // Make sure this path matches the location of your apiRouter file
+const apiRoutes = require('./routes/api'); // Make sure this path matches the location of your apiRouter file
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -24,7 +24,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Enable CORS with the above options
 
 // API Routes
-app.use('/api', apiRouter); // Mount API router at '/api' prefix
+app.use('/api', apiRoutes); // Mount API router at '/api' prefix
 
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public' directory
 
