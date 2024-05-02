@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel serve public/index.html",
-    "build": "parcel build public/index.html"
+    "start": "parcel server.js",
+    "build": "parcel build public/index.html ./routes/api.js"
   },
   "parcel": {
     "outDir": "dist"
