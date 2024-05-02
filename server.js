@@ -23,8 +23,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); // Enable CORS with the above options
 
-// API Routes
-app.use('/api', apiRoutes); // Mount API router at '/api' prefix
+// Middleware to log when the API route is hit
+app.use('/api', (req, res, next) => {
+    console.log('API route hit');
+    next();
+}, apiRoutes);
+
 
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public' directory
 
