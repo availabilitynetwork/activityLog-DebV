@@ -146,16 +146,6 @@
                 required
               />
             </div>
-            <!-- New fields for file upload -->
-            <div class="form-group">
-              <label for="fileUpload">Upload File:</label>
-              <input
-                type="file"
-                class="form-control-file"
-                id="fileUpload"
-                accept=".pdf,.doc,.docx"
-              />
-            </div>
             <div class="form-group">
               <label for="activityDate">Activity Date:</label>
               <input
@@ -165,13 +155,38 @@
                 required
               />
             </div>
-            <!-- End of new fields -->
-
             <button type="submit" class="btn btn-primary" id="addActivityBtn">
               Submit Activity
             </button>
           </form>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="fileUpload">Upload File:</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="fileUpload"
+              name="fileUpload"
+              accept=".pdf,.doc,.docx"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="url">Or Enter URL:</label>
+            <input
+              type="url"
+              class="form-control"
+              id="url"
+              name="url"
+              placeholder="https://example.com/file.pdf"
+            />
+          </div>
+        </div>
+        <div class="col"></div>
       </div>
       <hr />
 
