@@ -13,19 +13,28 @@ container {
   margin-bottom: 15px;
 }
 
+body {
+  /* Set the background image */
+  background-image: url("./img/pexels-eberhardgross-2310713.jpg");
+
+  /* Specify background properties */
+  background-size: cover; /* Cover the entire background */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+}
 .container {
-  width: 1000pk;
-  background-color: #d7cbcb;
+  width: 1000px;
+  background-color: transparent;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-top: 20px;
 }
 body {
-  background-color: #88abce;
+  background-color: #ecd1f7;
 }
 .navbar {
-  background-color: #88abce !important;
+  background-color: transparent !important;
 }
 #currentDate,
 .navbar-brand,
