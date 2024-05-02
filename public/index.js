@@ -12,9 +12,16 @@
           const row = document.createElement("tr");
 
           // Populate table cells with data
-          const activityDateCell = document.createElement("td");
-          activityDateCell.textContent = entry.activity_date;
-          row.appendChild(activityDateCell);
+          // const activityDateCell = document.createElement("td");
+          // activityDateCell.textContent = entry.activity_date;
+          // row.appendChild(activityDateCell);
+          const emailCell = document.createElement("td");
+          emailCell.textContent = entry.email;
+          row.appendChild(emailCell);
+
+          const lastNameCell = document.createElement("td");
+          lastNameCell.textContent = entry.last_name;
+          row.appendChild(lastNameCell);
 
           const activityTypeCell = document.createElement("td");
           activityTypeCell.textContent = entry.activity_type;
@@ -27,22 +34,14 @@
           const billableHoursCell = document.createElement("td");
           billableHoursCell.textContent = entry.billable_hours;
           row.appendChild(billableHoursCell);
-
-          const emailCell = document.createElement("td");
-          emailCell.textContent = entry.email;
-          row.appendChild(emailCell);
-
-          const lastNameCell = document.createElement("td");
-          lastNameCell.textContent = entry.last_name;
-          row.appendChild(lastNameCell);
-
+        
           const phoneCell = document.createElement("td");
           phoneCell.textContent = entry.phone;
           row.appendChild(phoneCell);
 
-          const registrationDateCell = document.createElement("td");
-          registrationDateCell.textContent = entry.registration_date;
-          row.appendChild(registrationDateCell);
+          // const registrationDateCell = document.createElement("td");
+          // registrationDateCell.textContent = entry.registration_date;
+          // row.appendChild(registrationDateCell);
 
           tbody.appendChild(row); // Append row to table body
         });
