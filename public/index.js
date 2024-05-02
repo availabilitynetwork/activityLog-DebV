@@ -35,9 +35,9 @@
           billableHoursCell.textContent = entry.billable_hours;
           row.appendChild(billableHoursCell);
         
-          const phoneCell = document.createElement("td");
-          phoneCell.textContent = entry.phone;
-          row.appendChild(phoneCell);
+          const authEndDate = document.createElement("td");
+          authEndDate.textContent = entry.auth_end_date;
+          row.appendChild(authEndDate);
 
           // const registrationDateCell = document.createElement("td");
           // registrationDateCell.textContent = entry.registration_date;
