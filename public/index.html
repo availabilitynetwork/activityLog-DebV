@@ -66,7 +66,54 @@
       <div class="row">
         <div class="col-md-6">
           <!-- Participant Modal -->
-<div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
+<!-- Participant Modal -->
+<div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="participantModalLabel">Add Participant</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Participant Form -->
+        <form id="participantForm">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" required />
+          </div>
+          <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="tel" class="form-control" id="phone" />
+          </div>
+          <div class="form-group">
+            <label for="registrationDate">Registration Date:</label>
+            <input type="date" class="form-control" id="registrationDate" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Participant</button>
+        </form>
+        <!-- End of Participant Form -->
+        <div id="participantMsg" class="text-danger mt-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+        <div class="col-md-6">
+         <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -144,39 +191,6 @@
   </div>
 </div>
 
-
-        </div>
-
-        <div class="col-md-6">
-          <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="activityModalLabel">Add Activity</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="activityForm">
-          <!-- Your activity form content goes here -->
-          <div class="form-group">
-            <label for="selectParticipant">Select Participant:</label>
-            <select class="form-control" id="selectParticipant" required>
-              <option value="">Select Participant</option>
-              <!-- Populate dynamically -->
-            </select>
-          </div>
-          <!-- Add other form fields as needed -->
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" id="addActivityBtn">Submit Activity</button>
-      </div>
-    </div>
-  </div>
-</div>
 
         </div>
       </div>
