@@ -3,7 +3,7 @@ const router = express.Router();
 const { getActivityLog } = require('../database'); // Adjust the path as needed
 
 // Endpoint to fetch activity log data
-router.get('/routes/api', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         console.log("Fetching activity log...");
         const activityLog = await getActivityLog(); // Calls the getActivityLog function
