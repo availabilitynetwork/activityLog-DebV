@@ -164,29 +164,108 @@
 
       <div class="row">
         <div class="col">
-          <div class="form-group">
-            <label for="fileUpload">Upload File:</label>
-            <input
-              type="file"
-              class="form-control-file"
-              id="fileUpload"
-              name="fileUpload"
-              accept=".pdf,.doc,.docx"
-            />
+          <div>
+            <h3>Add File</h3>
           </div>
-
-          <div class="form-group">
-            <label for="url">Or Enter URL:</label>
-            <input
-              type="url"
-              class="form-control"
-              id="url"
-              name="url"
-              placeholder="https://example.com/file.pdf"
-            />
-          </div>
+          <form id="uploadForm" method="post">
+            <div class="form-group">
+              <label for="fileUpload">Upload File:</label>
+              <input
+                type="file"
+                class="form-control-file"
+                id="fileUpload"
+                name="fileUpload"
+                accept=".pdf,.doc,.docx"
+              />
+              <hr />
+              <small class="form-text text-muted">OR</small>
+            </div>
+            <div class="form-group">
+              <label for="url">Enter URL:</label>
+              <input
+                type="url"
+                class="form-control"
+                id="url"
+                name="url"
+                placeholder="https://example.com/file.pdf"
+              />
+            </div>
+            <!-- Select Participant -->
+            <div class="form-group">
+              <label for="selectParticipantForFile">Select Participant:</label>
+              <select
+                class="form-control"
+                id="selectParticipantForFile"
+                required
+              >
+                <option value="">Select Participant</option>
+                <!-- Populate dynamically -->
+              </select>
+            </div>
+            <button type="button" id="submitButton" class="btn btn-primary">
+              Submit File
+            </button>
+          </form>
         </div>
-        <div class="col"></div>
+
+        <div class="col">
+          <h3>Add Authorization</h3>
+          <form id="authForm" method="post">
+            <div class="form-group">
+              <label for="authNumber">Authorization Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="authNumber"
+                name="authNumber"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="authBeginDate">Authorization Begin Date:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="authBeginDate"
+                name="authBeginDate"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="authEndDate">Authorization End Date:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="authEndDate"
+                name="authEndDate"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                required
+              />
+            </textarea>
+            <!-- Select Participant -->
+            <div class="form-group">
+              <label for="selectParticipant">Select Participant:</label>
+              <select
+                class="form-control"
+                id="selectParticipantForAuth"
+                required
+              >
+                <option value="">Select Participant</option>
+                <!-- Populate dynamically -->
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Authorization</button>
+          </form>
+        </div>
       </div>
       <hr />
 
