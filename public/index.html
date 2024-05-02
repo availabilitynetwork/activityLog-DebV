@@ -75,17 +75,15 @@
               <label for="phone">Phone:</label>
               <input type="tel" class="form-control" id="phone" />
             </div>
-            <!-- New field for auto timestamp -->
             <div class="form-group">
               <label for="registrationDate">Registration Date:</label>
               <input
-                type="text"
+                type="date"
                 class="form-control"
                 id="registrationDate"
-                readonly
+                required
               />
             </div>
-            <!-- End of new field -->
             <button
               type="submit"
               class="btn btn-primary"
@@ -158,6 +156,15 @@
                 accept=".pdf,.doc,.docx"
               />
             </div>
+            <div class="form-group">
+              <label for="activityDate">Activity Date:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="activityDate"
+                required
+              />
+            </div>
             <!-- End of new fields -->
 
             <button type="submit" class="btn btn-primary" id="addActivityBtn">
@@ -181,7 +188,6 @@
                 <th class="px-2">Case Notes</th>
                 <th class="px-2">Billable Hours</th>
                 <th class="px-2">Phone</th>
-                <!-- <th class="px-4">Registration Date</th> -->
               </tr>
             </thead>
             <tbody id="activityLogBody">
