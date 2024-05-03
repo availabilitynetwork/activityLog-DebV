@@ -1,0 +1,54 @@
+body, button, container {
+  font-variant: small-caps;
+  font-family: Georgia, serif;
+  font-size: 16px;
+}
+
+body {
+  background-image: url("pexels-eberhardgross-2310713.c9e49ce9.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  box-shadow: none;
+  max-width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.navbar {
+  padding: 10px;
+  background-color: #0000 !important;
+}
+
+.navbar-nav .nav-link {
+  padding: 10px 15px;
+}
+
+#currentDate, .navbar-brand, .navbar-nav .nav-link {
+  font-weight: 200;
+  color: #402424 !important;
+}
+
+#currentDate {
+  font-size: larger;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+@media (width >= 768px) {
+  .container {
+    width: 1000px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px #0000001a;
+  }
+
+  body, button, container {
+    font-size: 12px;
+  }
+}
+/*# sourceMappingURL=index.2082da99.css.map */

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Log Dashboard</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/index.2082da99.css" rel="stylesheet">
+    <style>
+</style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Activity Log Dashboard</a>
+        <!-- Include current date -->
+        <span id="currentDate" class="navbar-text ml-auto"></span>
+        <!-- End of current date -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <button class="nav-link btn btn-link" type="button">
+                Reports
+              </button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link btn btn-link" data-toggle="modal" data-target="#participantModal">
+                Add Participant
+              </button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link btn btn-link" data-toggle="modal" data-target="#activityModal">
+                Add Activity
+              </button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link btn btn-link" data-toggle="modal" data-target="#fileModal">
+                Add File
+              </button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link btn btn-link" data-toggle="modal" data-target="#authModal">
+                Add Authorization
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Participant Modal -->
+          <div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h5 class="modal-title" id="participantModalLabel">
+                    Add Participant
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                  <!-- Participant Form -->
+                  <form id="participantForm">
+                    <div class="form-group">
+                      <label for="email">Email:</label>
+                      <input type="email" class="form-control" id="email" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="firstName">First Name:</label>
+                      <input type="text" class="form-control" id="firstName" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="lastName">Last Name:</label>
+                      <input type="text" class="form-control" id="lastName" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone:</label>
+                      <input type="tel" class="form-control" id="phone">
+                    </div>
+                    <div class="form-group">
+                      <label for="registrationDate">Registration Date:</label>
+                      <input type="date" class="form-control" id="registrationDate" required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Submit Participant
+                    </button>
+                  </form>
+                  <!-- End of Participant Form -->
+                  <div id="participantMsg" class="text-danger mt-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="activityModalLabel">
+                    Add Activity
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="activityForm">
+                    <div class="form-group">
+                      <label for="selectParticipant">Select Participant:</label>
+                      <select class="form-control" id="selectParticipant" required="">
+                        <option value="">Select Participant</option>
+                        <!-- Populate dynamically -->
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="selectActivityType">Select Activity Type:</label>
+                      <select class="form-control" id="selectActivityType" required="">
+                        <option value="">Select Activity Type</option>
+                        <!-- Populate dynamically -->
+                        <option value="Custom">Custom</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="customActivityType" placeholder="Enter Custom Activity Type" style="display: none">
+                    </div>
+                    <div class="form-group">
+                      <label for="activityDescription">Activity Description:</label>
+                      <input type="text" class="form-control" id="activityDescription" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="caseNotes">Case Notes:</label>
+                      <textarea type="text" class="form-control" id="caseNotes"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="billableHours">Billable Hours:</label>
+                      <input type="number" class="form-control" id="billableHours" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="activityDate">Activity Date:</label>
+                      <input type="date" class="form-control" id="activityDate" required="">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary" id="addActivityBtn">
+                    Submit Activity
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="fileModalLabel">Add File</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="uploadForm" method="post">
+                    <div class="form-group">
+                      <label for="fileUpload">Upload File:</label>
+                      <input type="file" class="form-control-file" id="fileUpload" name="fileUpload" accept=".pdf,.doc,.docx">
+                      <hr>
+                      <small class="form-text text-muted">OR</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="url">Enter URL:</label>
+                      <input type="url" class="form-control" id="url" name="url" placeholder="https://example.com/file.pdf">
+                    </div>
+                    <!-- Select Participant -->
+                    <div class="form-group">
+                      <label for="selectParticipantForFile">Select Participant:</label>
+                      <select class="form-control" id="selectParticipantForFile" required="">
+                        <option value="">Select Participant</option>
+                        <!-- Populate dynamically -->
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary" id="submitButton">
+                    Submit File
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <!-- Authorization Modal -->
+          <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="authModalLabel">
+                    Add Authorization
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- Authorization Form -->
+                  <form id="authForm" method="post">
+                    <div class="form-group">
+                      <label for="authNumber">Authorization Number:</label>
+                      <input type="text" class="form-control" id="authNumber" name="authNumber" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="authBillableHours">Allotted Billable Hours:</label>
+                      <input type="number" class="form-control" id="authBillableHours" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="authBeginDate">Authorization Begin Date:</label>
+                      <input type="date" class="form-control" id="authBeginDate" name="authBeginDate" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="authEndDate">Authorization End Date:</label>
+                      <input type="date" class="form-control" id="authEndDate" name="authEndDate" required="">
+                    </div>
+                    <div class="form-group">
+                      <label for="description">Description:</label>
+                      <textarea type="text" class="form-control" id="description" name="description" required=""></textarea>
+                    </div>
+                    <!-- Select Participant -->
+                    <div class="form-group">
+                      <label for="selectParticipantForAuth">Select Participant:</label>
+                      <select class="form-control" id="selectParticipantForAuth" required="">
+                        <option value="">Select Participant</option>
+                        <!-- Populate dynamically -->
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    Submit Authorization
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col">
+          <h3>Recent Activity</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="px-2">Email</th>
+                  <th class="px-2">Last Name</th>
+                  <th class="px-2">Activity Type</th>
+                  <th class="px-2">Case Notes</th>
+                  <th class="px-2">Remaining Billable Hours</th>
+                  <th class="px-2">Auth Expiration</th>
+                </tr>
+              </thead>
+              <tbody id="activityLogBody">
+                <!-- Populate dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/index.f18de3a7.js" defer=""></script>
+    <script>document.addEventListener("DOMContentLoaded", function() {
+    var currentDate = new Date();
+    var dateString = currentDate.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+    document.getElementById("currentDate").textContent = dateString;
+});
+
+</script>
+
+  </body>
+</html>
