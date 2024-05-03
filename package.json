@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist .cache",
     "start": "parcel server.js",
-    "build": "parcel build public/index.html ./routes/api.js"
+    "build": "npm run clean && parcel build public/index.html ./routes/api.js"
   },
   "parcel": {
     "outDir": "dist"
@@ -31,6 +32,7 @@
     "process": "^0.11.10",
     "punycode": "^1.4.1",
     "querystring-es3": "^0.2.1",
+    "rimraf": "^5.0.5",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "string_decoder": "^1.3.0",
