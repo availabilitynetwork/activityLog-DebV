@@ -1,0 +1,63 @@
+/* Apply the font to the body */
+/* Base styles */
+body,
+button,
+container {
+  font-family: "Georgia", serif;
+  font-variant: small-caps;
+  font-size: 16px; /* Larger base font size for readability on mobile */
+}
+
+body {
+  /* Set the background image */
+  background-image: url("./img/pexels-eberhardgross-2310713.jpg");
+
+  /* Specify background properties */
+  background-size: cover; /* Cover the entire background */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+}
+/* Responsive container */
+.container {
+  max-width: 100%; /* Use max-width for flexibility */
+  padding: 10px; /* Adequate padding */
+  margin-top: 10px; /* Reduce margin-top for mobile */
+  box-shadow: none; /* Optional: remove shadow on mobile for cleaner look */
+}
+/* Navbar and Navigation */
+.navbar {
+  background-color: transparent !important;
+  padding: 10px; /* Reduce padding on mobile */
+}
+
+.navbar-nav .nav-link {
+  padding: 10px 15px; /* Increase touch target size */
+}
+#currentDate,
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #402424 !important;
+  font-weight: 200;
+}
+#currentDate {
+  font-size: larger;
+}
+/* Form elements */
+.form-group {
+  margin-bottom: 10px; /* Less space between form inputs */
+}
+
+/* Media Queries for larger screens */
+@media (min-width: 768px) {
+  .container {
+    width: 1000px; /* Fixed width for larger screens */
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  body,
+  button,
+  container {
+    font-size: 12px; /* Smaller font for larger devices */
+  }
+}
