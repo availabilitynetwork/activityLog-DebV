@@ -18,9 +18,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
         <a class="navbar-brand" href="#">Activity Log Dashboard</a>
-        <!-- Include current date -->
-        <span id="currentDate" class="navbar-text ml-auto"></span>
-        <!-- End of current date -->
+
         <button
           class="navbar-toggler"
           type="button"
@@ -86,6 +84,9 @@
 
     <div class="container">
       <div class="row">
+        <!-- Include current date -->
+        <span id="currentDate" class="navbar-text ml-auto"></span>
+        <!-- End of current date -->
         <div class="col-md-6">
           <!-- Participant Modal -->
           <div
@@ -521,17 +522,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="index.js" type="module"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var currentDate = new Date();
-    var dateString = currentDate.toLocaleDateString("en-US", {
-        weekday: 'long', // Display the day of the week
-        year: 'numeric',
-        month: 'long', // Display the full name of the month
-        day: 'numeric'
-    });
-    document.getElementById('currentDate').textContent = dateString;
-});
-</script>
-
+      document.addEventListener("DOMContentLoaded", function () {
+        var currentDate = new Date();
+        var dateString = currentDate.toLocaleDateString("en-US", {
+          weekday: "long", // Display the day of the week
+          year: "numeric",
+          month: "long", // Display the full name of the month
+          day: "numeric",
+        });
+        document.getElementById("currentDate").textContent = dateString;
+      });
+    </script>
   </body>
 </html>
