@@ -5,11 +5,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist .cache",
     "start": "parcel server.js",
-    "build": "npm run clean && parcel build public/index.html ./routes/api.js"
+    "build": "npm run clean && parcel build public/index.html ./routes/api.js --dist-dir ./dist --public-url ./"
   },
-  "parcel": {
-    "outDir": "dist"
-  },
+  "parcel": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
