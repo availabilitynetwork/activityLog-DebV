@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const { addParticipant } = require('../database'); // Import the addParticipant function from database.js
+const { getParticipants } = require('../database'); // Import the addParticipant function from database.js
 
 // POST route to add a new participant
 router.post('/', async (req, res) => {
@@ -19,7 +20,16 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Failed to add participant' });
     }
 });
+// In participants.js
 
-// Other endpoints related to participants can be added here if needed
-
+// GET route to fetch participants
+router.get('/', async (req, res) => {
+    try {
+        const participants = await getParticipants();
+        res.json(participants);
+    } catch (error) {
+        console.error('Error fetching participants:', error);
+        res.status(500).json({ message: 'Error fetching participants' });
+    }
+});
 module.exports = router;

@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const apiRoutes = require('./routes/api.js'); // Make sure this path matches the location of your apiRouter file
 const participantsRoutes = require('./routes/participants.js'); // Import the participants router
+const activityRoutes = require('./routes/activities.js');
+const typeRoutes = require('./routes/activity_type.js');
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
@@ -28,10 +30,25 @@ app.use('/participants', (req, res, next) => {
 }, participantsRoutes);
 
 // Middleware to log when the API route is hit
+app.use('/activities', (req, res, next) => {
+    console.log('Activities route hit');
+    next();
+}, activityRoutes);
+
+// Middleware to log when the API route is hit
+app.use('/activity_type', (req, res, next) => {
+    console.log('activity_type route hit');
+    next();
+}, typeRoutes);
+
+
+// Middleware to log when the API route is hit
 app.use('/api', (req, res, next) => {
     console.log('API route hit');
     next();
 }, apiRoutes);
+
+
 ///////////////////////////////////////////////////////////////
 
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public' directory

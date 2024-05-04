@@ -79,8 +79,86 @@ async function addParticipant(email, firstName, lastName, phone, registrationDat
     }
 }
 
+// Function to add a new activity to the database
+async function addActivity(participantId, activityTypeId, activityDesc, caseNotes, billableHours, activityDate) {
+    const client = await pool.connect();
+    try {
+        // Use the new column names in the activities table
+        const query = `
+            INSERT INTO activities (participant_id, activity_type_id, activity_desc, case_notes, billable_hours, activity_date)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        await client.query(query, [participantId, activityTypeId, activityDesc, caseNotes, billableHours, activityDate]);
+        console.log('Activity added successfully.');
+    } catch (error) {
+        console.error('Error adding activity to the database:', error);
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
+
+// Function to get all participants from the database
+async function getParticipants() {
+    const client = await pool.connect();
+    try {
+        console.log("Fetching participants from the database...");
+        const result = await client.query(`
+            SELECT participant_id, email, first_name, last_name, phone, registration_date
+            FROM participants
+            ORDER BY last_name ASC
+        `);
+
+        console.log('Fetched participants data:', result.rows); // Logging fetched data to console
+        return result.rows;
+    } catch (error) {
+        console.error('Error fetching participants:', error);
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
+
+async function addActivityType(type_name, activity_desc) {
+    const client = await pool.connect();
+    try {
+        const query = 'INSERT INTO activity_types (type_name, activity_desc) VALUES ($1, $2)';
+        await client.query(query, [type_name, activity_desc]);
+        console.log('Activity type added successfully.');
+    } catch (error) {
+        console.error('Error adding activity type:', error);
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
+
+async function getActivityTypes() {
+    const client = await pool.connect();
+    try {
+        const query = 'SELECT id, type_name, activity_desc FROM activity_types ORDER BY type_name';
+        const result = await client.query(query);
+        return result.rows;
+    } catch (error) {
+        console.error('Error fetching activity types:', error);
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
+
+
+
 module.exports = {
+    addActivityType,
+    getActivityTypes,
+    addActivity,
     addParticipant,
-    getActivityLog
+    getActivityLog,
+    getParticipants
 };
 

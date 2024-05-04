@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getActivityLog } = require('../database'); // Adjust the path as needed
 
+
 // Endpoint to fetch activity log data
 router.get('/', async (req, res) => {
     try {
@@ -14,6 +15,8 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
 
 module.exports = router;
 
