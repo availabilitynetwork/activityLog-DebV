@@ -116,13 +116,18 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                   <!-- Participant Form -->
-                  <form id="participantForm">
+                  <form
+                    id="participantForm"
+                    action="/participants"
+                    method="POST"
+                  >
                     <div class="form-group">
                       <label for="email">Email:</label>
                       <input
                         type="email"
                         class="form-control"
                         id="email"
+                        name="email"
                         required
                       />
                     </div>
@@ -132,6 +137,7 @@
                         type="text"
                         class="form-control"
                         id="firstName"
+                        name="firstName"
                         required
                       />
                     </div>
@@ -141,22 +147,30 @@
                         type="text"
                         class="form-control"
                         id="lastName"
+                        name="lastName"
                         required
                       />
                     </div>
                     <div class="form-group">
                       <label for="phone">Phone:</label>
-                      <input type="tel" class="form-control" id="phone" />
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="phone"
+                        name="phone"
+                      />
                     </div>
                     <div class="form-group">
                       <label for="registrationDate">Registration Date:</label>
                       <input
-                        type="date"
+                        type="datetime-local"
                         class="form-control"
                         id="registrationDate"
+                        name="registrationDate"
                         required
                       />
                     </div>
+
                     <button type="submit" class="btn btn-primary">
                       Submit Participant
                     </button>
@@ -200,6 +214,7 @@
                       <select
                         class="form-control"
                         id="selectParticipant"
+                        name="selectParticipant"
                         required
                       >
                         <option value="">Select Participant</option>
@@ -213,6 +228,7 @@
                       <select
                         class="form-control"
                         id="selectActivityType"
+                        name="selectActivityType"
                         required
                       >
                         <option value="">Select Activity Type</option>
@@ -223,6 +239,7 @@
                         type="text"
                         class="form-control mt-2"
                         id="customActivityType"
+                        name="customActivityType"
                         placeholder="Enter Custom Activity Type"
                         style="display: none;"
                       />
@@ -235,6 +252,7 @@
                         type="text"
                         class="form-control"
                         id="activityDescription"
+                        name="activityDescription"
                         required
                       />
                     </div>
@@ -244,6 +262,7 @@
                         type="text"
                         class="form-control"
                         id="caseNotes"
+                        name="caseNotes"
                       ></textarea>
                     </div>
                     <div class="form-group">
@@ -252,6 +271,7 @@
                         type="number"
                         class="form-control"
                         id="billableHours"
+                        name="billableHours"
                         required
                       />
                     </div>
@@ -261,6 +281,7 @@
                         type="date"
                         class="form-control"
                         id="activityDate"
+                        name="activityDate"
                         required
                       />
                     </div>
@@ -319,6 +340,7 @@
                         type="file"
                         class="form-control-file"
                         id="fileUpload"
+                        name="fileModalLabel"
                         name="fileUpload"
                         accept=".pdf,.doc,.docx"
                       />
@@ -332,6 +354,7 @@
                         class="form-control"
                         id="url"
                         name="url"
+                        name="url"
                         placeholder="https://example.com/file.pdf"
                       />
                     </div>
@@ -343,6 +366,7 @@
                       <select
                         class="form-control"
                         id="selectParticipantForFile"
+                        name="selectParticipantForFile"
                         required
                       >
                         <option value="">Select Participant</option>
@@ -418,6 +442,7 @@
                         type="number"
                         class="form-control"
                         id="authBillableHours"
+                        name="authBillableHours"
                         required
                       />
                     </div>
@@ -461,6 +486,7 @@
                       <select
                         class="form-control"
                         id="selectParticipantForAuth"
+                        name="selectParticipantForAuth"
                         required
                       >
                         <option value="">Select Participant</option>

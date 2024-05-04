@@ -59,4 +59,28 @@ ORDER BY activities.activity_date DESC;
     }
 }
 
-module.exports = { getActivityLog };
+// Function to add a new participant to the database
+async function addParticipant(email, firstName, lastName, phone, registrationDate) {
+    const client = await pool.connect();
+    try {
+        console.log("Adding participant to the database...");
+        // Execute the SQL query to insert participant data
+        const result = await client.query(`
+            INSERT INTO participants (email, first_name, last_name, phone, registration_date)
+            VALUES ($1, $2, $3, $4, $5)
+        `, [email, firstName, lastName, phone, registrationDate]);
+        console.log('Participant added successfully.');
+        return result.rows;
+    } catch (error) {
+        console.error('Error adding participant to the database:', error);
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
+module.exports = {
+    addParticipant,
+    getActivityLog
+};
+
