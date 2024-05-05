@@ -2,6 +2,7 @@
 const express = require('express'); // Import Express for routing
 const router = express.Router(); // Create an Express router instance
 const { addActivityType, getActivityTypes } = require('../database'); // Import database functions
+const { getActivityTypeDescription } = require('./activity_type_desc');
 
 // Define a POST route to handle adding new activity types
 router.post('/', async (req, res) => {
@@ -42,24 +43,20 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Define a GET route to fetch the description of an activity type by its ID
+// Endpoint to fetch a description by activity type ID
 router.get('/description/:id', async (req, res) => {
-    const { id } = req.params; // Extract the `id` parameter from the request
+    const { id } = req.params;
 
     try {
-        // Query to fetch the description for the specified activity type ID
-        const query = 'SELECT activity_desc FROM activity_types WHERE id = $1';
-        const result = await pool.query(query, [id]);
+        // Fetch the description using the external utility function
+        const activityDesc = await getActivityTypeDescription(id);
 
-        if (result.rows.length > 0) {
-            // If a result was found, respond with the description
-            res.status(200).json({ activity_desc: result.rows[0].activity_desc });
+        if (activityDesc !== null) {
+            res.status(200).json({ activity_desc: activityDesc });
         } else {
-            // If no result was found, respond with a 404 status code
             res.status(404).json({ error: 'No description found for the specified type.' });
         }
     } catch (error) {
-        // Log any errors that occurred and respond with a 500 status code
         console.error('Error fetching description:', error);
         res.status(500).json({ error: 'Server error' });
     }

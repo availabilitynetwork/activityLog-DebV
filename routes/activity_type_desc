@@ -1,0 +1,46 @@
+// Importing required modules
+const express = require('express'); // Import Express for routing
+const router = express.Router(); // Create an Express router instance
+const { Pool } = require('pg'); // PostgreSQL client for connection pooling and querying
+const fs = require('fs'); // Node.js File System module to read the certificate file
+const path = require('path'); // Node.js Path module to handle file paths
+
+// Load environment variables from `.env` file into `process.env`
+require('dotenv').config();
+
+// Specify the path to the CA certificate (required for SSL connection)
+const caCertificatePath = path.join(__dirname, '../certs', 'ca-certificate.crt');
+
+// Setup PostgreSQL connection pool using environment variables
+const pool = new Pool({
+    host: process.env.DB_HOST, // Database server host
+    database: process.env.DB_NAME, // Database name
+    password: process.env.DB_PASS, // Database password
+    port: process.env.DB_PORT, // Database port
+    ssl: {
+        rejectUnauthorized: true, // Enforce SSL validation for security
+        ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate file for SSL
+    }
+});
+
+// Function to fetch the description by activity type ID
+async function getActivityTypeDescription(id) {
+    const client = await pool.connect();
+    try {
+        const query = 'SELECT activity_desc FROM activity_types WHERE id = $1';
+        const result = await client.query(query, [id]);
+
+        if (result.rows.length > 0) {
+            return result.rows[0].activity_desc; // Return the description if found
+        } else {
+            return null; // Return null if no description found
+        }
+    } catch (error) {
+        console.error('Error fetching description:', error);
+        throw error; // Rethrow error to handle it in the calling function
+    } finally {
+        client.release();
+    }
+}
+
+module.exports = { getActivityTypeDescription };
