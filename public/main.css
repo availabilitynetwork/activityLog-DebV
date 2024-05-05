@@ -5,7 +5,7 @@ button,
 container {
   font-family: "Georgia", serif;
   font-variant: small-caps;
-  font-size: 16px; /* Larger base font size for readability on mobile */
+  font-size: 10px; /* Larger base font size for readability on mobile */
 }
 
 body {
@@ -46,7 +46,9 @@ body {
 .form-group {
   margin-bottom: 10px; /* Less space between form inputs */
 }
-
+td#emailRecentActivity {
+  padding: 1.5rem !important;
+}
 /* Media Queries for larger screens */
 @media (min-width: 768px) {
   .container {
