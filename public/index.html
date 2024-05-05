@@ -216,23 +216,24 @@
             </div>
             <div class="form-group">
               <label for="selectActivityType">Select Activity Type:</label>
-              <select class="form-control" id="selectActivityType" name="selectActivityType" required>
-                <option value="">Select Activity Type</option>
-                <!-- Populate dynamically -->
-                <option value="Custom">Custom</option>
-              </select>
-              <input
+              <select class="form-control" id="selectActivityType" name="activity_type_id" required>
+              <option value="">Select Activity Type</option>
+              <option value="Custom">Custom</option>
+              <!-- Other options -->
+          </select>
+
+            <input
                 type="text"
                 class="form-control mt-2"
                 id="customActivityType"
                 name="customActivityType"
                 placeholder="Enter Custom Activity Type"
-                style="display: none;"
-              />
-            </div>
+                style="display: none;" />
+                <!-- Field to automatically populate with the description -->
             <div class="form-group">
-              <label for="activityDescription">Activity Description:</label>
-              <input type="text" class="form-control" id="activityDescription" name="activityDescription" required />
+                <label for="activityDescription">Activity Description:</label>
+                <input type="text" class="form-control" id="activityDescription" name="activityDescription" required />
+            </div>
             </div>
             <div class="form-group">
               <label for="caseNotes">Case Notes:</label>
@@ -512,3 +513,22 @@
     </script>
   </body>
 </html>
+
+
+<!-- Explanation:
+
+    Head Section:
+        Loads external stylesheets (Bootstrap) and local styles (main.css) to style the page.
+
+    Navigation Bar:
+        Contains a logo and buttons to open different modals for managing participants, activities, files, and authorizations.
+
+    Modals:
+        Participant Modal: Handles adding a new participant via a form.
+        Activity Modal: Provides options to add a new activity, including the ability to input a custom activity type and description.
+        Recent Activity: Displays the most recent activities in a table format.
+
+    JavaScript:
+        Loads external libraries (jQuery, Popper, and Bootstrap) for interactivity.
+        Loads a separate index.js file for business logic and additional interactivity.
+        Contains a script that displays the current date on page load. -->
