@@ -34,17 +34,22 @@ async function fetchData() {
         billableHoursCell.textContent = entry.billable_hours; // Billable hours for the activity
         row.appendChild(billableHoursCell);
 
-        const authEndDate = document.createElement("td");
-        authEndDate.textContent = entry.auth_end_date; // End date of authorization
-        row.appendChild(authEndDate);
+        const remainingHoursCell = document.createElement("td");
+        remainingHoursCell.textContent = entry.remaining_billable_hours; // Remaining billable hours
+        row.appendChild(remainingHoursCell);
+
+        const authEndDateCell = document.createElement("td");
+        authEndDateCell.textContent = entry.auth_end_date; // End date of authorization
+        row.appendChild(authEndDateCell);
 
         // Append the new row to the table body
         tbody.appendChild(row);
     });
 }
 
-// Call fetchData to populate the table on page load
-fetchData();
+// Fetch data when the document is ready
+document.addEventListener("DOMContentLoaded", fetchData);
+
 
 
 // Fetch participants from the server and populate the participant dropdown

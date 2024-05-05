@@ -40,25 +40,27 @@ async function getActivityLog() {
         console.log("Fetching activity log from the database...");
         // SQL query to fetch all activities along with participant and authorization details
         const query = `
-        SELECT
-            activities.activity_desc,
-            activities.case_notes,
-            activities.billable_hours,
-            participants.email,
-            participants.last_name,
-            auth.auth_end_date,
-            activity_types.type_name
-        FROM
-            activities
-        INNER JOIN
-            participants ON activities.participant_id = participants.participant_id
-        INNER JOIN
-            auth ON participants.participant_id = auth.participant_id
-        INNER JOIN
-            activity_types ON activities.activity_type_id = activity_types.id
-        ORDER BY
-            activities.activity_date DESC;
-        `;
+    SELECT
+        activities.activity_desc,
+        activities.case_notes,
+        activities.billable_hours, -- Retaining this to still show individual activity hours
+        participants.email,
+        participants.last_name,
+        auth.auth_end_date,
+        auth.remaining_billable_hours, -- Include remaining hours
+        activity_types.type_name
+    FROM
+        activities
+    INNER JOIN
+        participants ON activities.participant_id = participants.participant_id
+    INNER JOIN
+        auth ON participants.participant_id = auth.participant_id
+    INNER JOIN
+        activity_types ON activities.activity_type_id = activity_types.id
+    ORDER BY
+        activities.activity_date DESC;
+`;
+
         const result = await client.query(query); // Execute the query
 
         console.log('Fetched activity log data:', result.rows); // Log retrieved data
