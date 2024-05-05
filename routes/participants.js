@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
         await addParticipant(email, firstName, lastName, phone, registrationDate);
 
        // Redirect to a success page with a query parameter
-        res.redirect(`/success?message=${encodeURIComponent('Participant added successfully!')}`);
+        res.redirect(`/success.html?message=${encodeURIComponent('Participant added successfully!')}`);
     } catch (error) {
         console.error('Error adding participant:', error);
         // Redirect to an error page with a query parameter

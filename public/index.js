@@ -140,6 +140,63 @@ document.getElementById('selectActivityType').addEventListener('change', async f
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Fetch participants from the server to populate the dropdown
+    fetch('/auth/participants')
+        .then(response => response.json()) // Parse the JSON response
+        .then(participants => {
+            const selectElement = document.getElementById('selectParticipantForAuth');
+
+            // Clear existing options (if any)
+            selectElement.innerHTML = '<option value="">Select Participant</option>';
+
+            // Append each participant to the dropdown
+            participants.forEach(participant => {
+                const option = document.createElement('option');
+                option.value = participant.participant_id; // Assumes participant_id is the identifier
+                option.textContent = `${participant.first_name} ${participant.last_name}`;
+                selectElement.appendChild(option); // Add to dropdown
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching participants:', error);
+        });
+});
+
+// Handle form submission
+document.getElementById('authForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect form data
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries()); // Convert to an object
+
+    // Explicitly convert numeric fields to numbers
+    data.authBillableHours = parseFloat(data.authBillableHours) || 0; // Default to 0 if not a valid number
+
+    try {
+        // Send a POST request to the server
+        const response = await fetch('/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data) // Stringify the object
+        });
+
+        if (response.ok) {
+            alert('Authorization added successfully!');
+            // Optionally reset the form or close the modal here
+        } else {
+            const error = await response.text();
+            alert('Error: ' + error);
+        }
+    } catch (error) {
+        console.error('Error submitting authorization:', error);
+        alert('Submission failed.');
+    }
+});
+
+
+
 
 // Explanation:
 

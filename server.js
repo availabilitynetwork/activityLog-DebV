@@ -10,7 +10,8 @@ const apiRoutes = require('./routes/api.js'); // General API route (ensure path 
 const participantsRoutes = require('./routes/participants.js'); // Routes to manage participants
 const activityRoutes = require('./routes/activities.js'); // Routes to manage activities
 const typeRoutes = require('./routes/activity_type.js'); // Routes to manage activity types
-//const activityTypeDescRoutes = require('./routes/activity_type_desc'); //route to manage activity_type desc
+const authorizationRoutes = require('./routes/auth.js');
+
 
 // Load environment variables from `.env` file into process.env
 dotenv.config(); 
@@ -68,6 +69,12 @@ app.use('/activity_type/description', (req, res, next) => {
     console.log('activity_type/description route hit'); // Log route usage
     next(); // Proceed to the next middleware
 }, apiRoutes);
+
+app.use('/auth', (req, res, next) => {
+    console.log('auth route hit'); // Log route usage
+    next(); // Proceed to the next middleware
+}, authorizationRoutes);
+
 // Static file serving middleware
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the `public` directory
 

@@ -190,8 +190,52 @@ async function getActivityTypes() {
     }
 }
 
+async function addAuthorization(
+    participantId,
+    authNumber,
+    authBillableHours,
+    authBeginDate,
+    authEndDate,
+    authDetails
+) {
+    const client = await pool.connect();
+    try {
+        // Log parameters to check for any issues
+        console.log({
+            participantId,
+            authNumber, // Confirm this remains a string
+            authBillableHours,
+            authBeginDate,
+            authEndDate,
+            authDetails
+        });
+
+        // Ensure that the query matches the data types in the `auth` table
+        const query = `
+            INSERT INTO auth (participant_id, auth_number, auth_billable_hours, auth_begin_date, auth_end_date, auth_details)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        await client.query(query, [
+            participantId,
+            authNumber,
+            authBillableHours,
+            authBeginDate,
+            authEndDate,
+            authDetails
+        ]);
+        console.log('Authorization added successfully.');
+    } catch (error) {
+        console.error('Error adding authorization to the database:', error);
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
+
 // Export the functions for use in other modules
 module.exports = {
+    addAuthorization,
     addActivityType,
     getActivityTypes,
     findOrAddActivityType,
