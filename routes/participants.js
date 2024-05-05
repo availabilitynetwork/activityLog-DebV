@@ -15,12 +15,12 @@ router.post('/', async (req, res) => {
         // Insert participant data into the database by calling `addParticipant`
         await addParticipant(email, firstName, lastName, phone, registrationDate);
 
-        // Send a successful response back to the client
-        res.status(200).json({ message: 'Participant added successfully' });
+       // Redirect to a success page with a query parameter
+        res.redirect(`/success?message=${encodeURIComponent('Participant added successfully!')}`);
     } catch (error) {
-        // Log the error and send an appropriate error response to the client
         console.error('Error adding participant:', error);
-        res.status(500).json({ message: 'Failed to add participant' });
+        // Redirect to an error page with a query parameter
+        res.redirect(`/error?message=${encodeURIComponent('Failed to add participant')}`);
     }
 });
 

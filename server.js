@@ -10,7 +10,7 @@ const apiRoutes = require('./routes/api.js'); // General API route (ensure path 
 const participantsRoutes = require('./routes/participants.js'); // Routes to manage participants
 const activityRoutes = require('./routes/activities.js'); // Routes to manage activities
 const typeRoutes = require('./routes/activity_type.js'); // Routes to manage activity types
-const activityTypeDescRoutes = require('./routes/activity_type_desc'); //route to manage activity_type desc
+//const activityTypeDescRoutes = require('./routes/activity_type_desc'); //route to manage activity_type desc
 
 // Load environment variables from `.env` file into process.env
 dotenv.config(); 
