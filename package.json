@@ -1,35 +1,20 @@
 {
   "name": "activitylog-debv",
-  "version": "1.0.0",
-  "description": "A Node.js web application for logging and tracking activities.",
+  "version": "2.0.0",
+  "description": "activiy log",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node-dev server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo 'No build step required'"
+    "test": "hello world",
+    "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yourusername/activitylog-debv.git"
-  },
-  "keywords": [
-    "activity-log",
-    "nodejs",
-    "web-app"
-  ],
-  "author": "Errin Johnson <errin.connects@gmail.com>",
+  "author": "Errin Johnson",
   "license": "MIT",
-  "engines": {
-    "node": ">=14.0.0"
-  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "fs": "^0.0.1-security",
     "morgan": "^1.10.0",
-    "path": "^0.12.7",
-    "pg": "^8.11.5"
+    "node": "^22.1.0",
+    "path": "^0.12.7"
   }
 }
