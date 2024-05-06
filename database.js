@@ -23,15 +23,17 @@ const pool = new Pool({
 });
 
 // Test database connectivity on start-up
-pool.query('SELECT NOW()', (err, res) => {
-    console.log('Inside callback function'); // Debug message for the callback function
-    if (err) {
-        console.error('Database connection error:', err.message); // Log error message if connection fails
-        process.exit(1); // Exit the script with an error code
-    } else {
-        console.log('Database connection successful:', res.rows[0].now); // Log successful connection time
+// Add this function in your database.js
+async function testDatabaseConnection() {
+    try {
+        const res = await pool.query('SELECT NOW()'); // Simple query to test connectivity
+        console.log('Database connection test successful:', res.rows[0].now);
+    } catch (err) {
+        console.error('Database connection test failed:', err);
+        throw err;
     }
-});
+}
+
 console.log("Database.js setup completed.");
 
 // Function to fetch activity logs by joining relevant tables
@@ -238,6 +240,7 @@ async function addAuthorization(
 
 // Export the functions for use in other modules
 module.exports = {
+    testDatabaseConnection,
     addAuthorization,
     addActivityType,
     getActivityTypes,
