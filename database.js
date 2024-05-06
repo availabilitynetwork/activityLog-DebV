@@ -19,7 +19,7 @@ const pool = new Pool({
         rejectUnauthorized: true, // Enforce SSL validation for security
         ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate file for SSL
     },
-    connectionTimeoutMillis: 10000 // timeout of 10 seconds
+    connectionTimeoutMillis: 30000 // timeout of 30 seconds
 });
 
 // Test database connectivity on start-up

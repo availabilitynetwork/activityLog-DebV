@@ -20,7 +20,7 @@ const pool = new Pool({
     ssl: {
         rejectUnauthorized: true, // Enforce SSL validation for security
         ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate file for SSL
-    }, connectionTimeoutMillis: 10000 // Example timeout of 10 seconds
+    }, connectionTimeoutMillis: 30000 // Example timeout of 30 seconds
 });
 
 // Function to fetch the description by activity type ID

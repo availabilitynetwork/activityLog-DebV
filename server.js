@@ -87,7 +87,7 @@ const server = http.createServer((req, res) => {
 });
 
 // Set the server timeout to 10 seconds (10,000 ms)
-server.setTimeout(10000, (socket) => {
+server.setTimeout(30000, (socket) => {
   // This callback is invoked if the timeout is reached
   socket.end('Request timeout. Closing connection.\n');
 });
