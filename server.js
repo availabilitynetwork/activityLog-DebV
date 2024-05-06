@@ -78,6 +78,20 @@ app.use('/auth', (req, res, next) => {
 // Static file serving middleware
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the `public` directory
 
+const http = require('http');
+
+// Create an HTTP server
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello, world!\n');
+});
+
+// Set the server timeout to 10 seconds (10,000 ms)
+server.setTimeout(10000, (socket) => {
+  // This callback is invoked if the timeout is reached
+  socket.end('Request timeout. Closing connection.\n');
+});
+
 // Global Error Handling
 
 // Handle unhandled promise rejections globally
