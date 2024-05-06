@@ -4,6 +4,7 @@
   "description": "activiy log",
   "main": "server.js",
   "scripts": {
+    "build": "echo \"Skipping build step\"",
     "start": "node server.js"
   },
   "author": "Errin Johnson",
