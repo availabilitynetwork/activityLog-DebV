@@ -4,7 +4,6 @@
   "description": "activiy log",
   "main": "server.js",
   "scripts": {
-    "test": "hello world",
     "start": "node server.js"
   },
   "author": "Errin Johnson",
