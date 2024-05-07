@@ -191,16 +191,31 @@ document.getElementById('authForm').addEventListener('submit', async function (e
 
 document.getElementById('updateHoursButton').addEventListener('click', async function() {
   try {
-    const response = await fetch('/updateQueryBillableHours', { method: 'POST' });
+    const response = await fetch('/updateQueryBillableHours', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    // Check if the HTTP response status code is successful
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
     const result = await response.json();
-    alert(result.message); // Notify user about success
+
+    // Check if the response includes a success message
+    if (result.message) {
+      alert(result.message); // Notify user about success
+      window.location.reload(); // Reload the page to reflect the changes
+    } else {
+      throw new Error('Update failed: No success message received.');
+    }
+
   } catch (error) {
     console.error('Failed to update remaining hours:', error);
-    alert('Failed to update remaining billable hours.');
+    alert('Failed to update remaining billable hours: ' + error.message);
   }
 });
-
-
 
 // Explanation:
 
