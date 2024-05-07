@@ -39,23 +39,6 @@ async function fetchData() {
     });
 }
 
-// Fetch data when the document is ready
-document.addEventListener("DOMContentLoaded", fetchData);
-
-document.addEventListener('DOMContentLoaded', function () {
-    const infoElements = document.querySelectorAll('.info');
-
-    infoElements.forEach(element => {
-        element.addEventListener('touchstart', function(event) {
-            // Show tooltip or expand information
-            this.classList.toggle('active');
-        });
-    });
-});
-
-
-
-
 // Fetch participants from the server and populate the participant dropdown
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch participants from the `/participants` endpoint
