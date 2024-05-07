@@ -11,6 +11,7 @@ const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 
 // Setup PostgreSQL connection pool using environment variables
 const pool = new Pool({
+    user: process.env.DB_USER,
     host: process.env.DB_HOST, // Database server host
     database: process.env.DB_NAME, // Database name
     password: process.env.DB_PASS, // Database password
