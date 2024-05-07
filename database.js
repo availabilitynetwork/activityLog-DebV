@@ -241,6 +241,7 @@ async function addAuthorization(
 
 // Export the functions for use in other modules
 module.exports = {
+    pool,
     testDatabaseConnection,
     addAuthorization,
     addActivityType,

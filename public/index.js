@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
-
 // Fetch activity types from the server and populate the activity type dropdown
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/activity_type')
@@ -190,6 +189,16 @@ document.getElementById('authForm').addEventListener('submit', async function (e
     }
 });
 
+document.getElementById('updateHoursButton').addEventListener('click', async function() {
+  try {
+    const response = await fetch('/updateQueryBillableHours', { method: 'POST' });
+    const result = await response.json();
+    alert(result.message); // Notify user about success
+  } catch (error) {
+    console.error('Failed to update remaining hours:', error);
+    alert('Failed to update remaining billable hours.');
+  }
+});
 
 
 

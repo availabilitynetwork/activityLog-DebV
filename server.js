@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./database'); // Assuming your database file is named 'database.js'
-
+const updateQueryBillableHours = require('./routes/updateQueryBillableHours');
 // Load environment variables
 dotenv.config();
 
@@ -26,6 +26,7 @@ app.use('/activities', require('./routes/activities'));
 app.use('/activity_type', require('./routes/activity_type'));
 app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth'));
+app.use('/updateQueryBillableHours', updateQueryBillableHours);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
