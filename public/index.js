@@ -39,6 +39,9 @@ async function fetchData() {
     });
 }
 
+// Fetch data when the document is ready
+document.addEventListener("DOMContentLoaded", fetchData);
+
 // Fetch participants from the server and populate the participant dropdown
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch participants from the `/participants` endpoint
