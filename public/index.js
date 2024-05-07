@@ -1,54 +1,42 @@
-// Fetch data from the server and populate the table
 async function fetchData() {
     // Request activity log data from the `/api` endpoint
     const response = await fetch("/api");
     const data = await response.json();
 
-    // Identify the table body element where rows will be added
-    const tbody = document.getElementById("activityLogBody");
-    tbody.innerHTML = ""; // Clear existing rows to avoid duplication
+    // Identify the container element where cards will be added using the existing ID 'activityLogBody'
+    const container = document.getElementById("activityLogBody");
+    container.innerHTML = ""; // Clear existing content to avoid duplication
 
     // Iterate through each activity log entry returned from the server
     data.forEach((entry) => {
-        // Create a new row for the table
-        const row = document.createElement("tr");
+        // Create a new card element for each entry
+        const card = document.createElement("div");
+        card.className = "card mb-3";
 
-        // Create and populate cells for each piece of data
-        const emailCell = document.createElement("td");
-        emailCell.textContent = entry.email; // Email of the participant
-        row.appendChild(emailCell);
-
-        const lastNameCell = document.createElement("td");
-        lastNameCell.textContent = entry.last_name; // Last name of the participant
-        row.appendChild(lastNameCell);
-
-        const activityTypeCell = document.createElement("td");
-        activityTypeCell.textContent = entry.type_name; // Activity type (name)
-        row.appendChild(activityTypeCell);
-
-        const caseNotesCell = document.createElement("td");
-        caseNotesCell.textContent = entry.case_notes; // Notes related to the activity
-        row.appendChild(caseNotesCell);
-
-        const billableHoursCell = document.createElement("td");
-        billableHoursCell.textContent = entry.billable_hours; // Billable hours for the activity
-        row.appendChild(billableHoursCell);
-
-        const remainingHoursCell = document.createElement("td");
-        remainingHoursCell.textContent = entry.remaining_billable_hours; // Remaining billable hours
-        row.appendChild(remainingHoursCell);
-
-        const authEndDateCell = document.createElement("td");
-        authEndDateCell.textContent = entry.auth_end_date; // End date of authorization
-        row.appendChild(authEndDateCell);
-
-        // Append the new row to the table body
-        tbody.appendChild(row);
+        // Construct card content
+        card.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">Authorization Number: ${entry.auth_number}</h5>
+                <p class="card-text">
+                    <strong>Last Name:</strong> ${entry.last_name}<br>
+                    <strong>Activity Type:</strong> ${entry.type_name}<br>
+                    <strong>Activity Description:</strong> ${entry.activity_desc}<br>
+                    <strong>Case Notes:</strong> ${entry.case_notes}<br>
+                    <strong>Billable Hours:</strong> ${entry.billable_hours}<br>
+                    <strong>Remaining Billable Hours:</strong> ${entry.remaining_billable_hours}<br>
+                    <strong>Authorization End Date:</strong> ${entry.auth_end_date}
+                </p>
+            </div>
+        `;
+        
+        // Append the new card to the container
+        container.appendChild(card);
     });
 }
 
 // Fetch data when the document is ready
 document.addEventListener("DOMContentLoaded", fetchData);
+
 
 
 

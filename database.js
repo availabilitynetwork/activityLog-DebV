@@ -37,7 +37,6 @@ async function testDatabaseConnection() {
 
 console.log("Database.js setup completed.");
 
-// Function to fetch activity logs by joining relevant tables
 async function getActivityLog() {
     const client = await pool.connect(); // Obtain a client from the pool
     try {
@@ -48,7 +47,7 @@ async function getActivityLog() {
         activities.activity_desc,
         activities.case_notes,
         activities.billable_hours, -- Retaining this to still show individual activity hours
-        participants.email,
+        auth.auth_number, -- Replace email with auth_number
         participants.last_name,
         auth.auth_end_date,
         auth.remaining_billable_hours, -- Include remaining hours
@@ -76,6 +75,7 @@ async function getActivityLog() {
         client.release(); // Release the client back to the pool
     }
 }
+
 
 // Function to add a new participant to the database
 async function addParticipant(email, firstName, lastName, phone, registrationDate) {
