@@ -16,6 +16,7 @@ async function fetchData() {
         // Check if 'type_name' contains 'PBA'
         const typeStyle = entry.type_name.includes("PBA") ? "orange-background" : "";
         const tooltipText = entry.type_name.includes("PBA") ? "contains letters PBA, color codes to orange" : "";
+        const iconHTML = entry.type_name.includes("PBA") ? '<i class="fas fa-info-circle" aria-hidden="true"></i>' : '';
 
         // Construct card content
         card.innerHTML = `
@@ -23,7 +24,7 @@ async function fetchData() {
                 <h5 class="card-title">Authorization Number: ${entry.auth_number}</h5>
                 <p class="card-text">
                     <strong>Last Name:</strong> ${entry.last_name}<br>
-                    <strong>Activity Type:</strong> <span class="${typeStyle}" title="${tooltipText}">${entry.type_name}</span><br>
+                    <strong>Activity Type:</strong> <span class="${typeStyle}" title="${tooltipText}">${entry.type_name} ${iconHTML}</span><br>
                     <strong>Activity Description:</strong> ${entry.activity_desc}<br>
                     <strong>Case Notes:</strong> ${entry.case_notes}<br>
                     <strong>Billable Hours:</strong> ${entry.billable_hours}<br>
