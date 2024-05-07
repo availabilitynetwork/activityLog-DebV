@@ -42,13 +42,16 @@ async function fetchData() {
 // Fetch data when the document is ready
 document.addEventListener("DOMContentLoaded", fetchData);
 
+document.addEventListener('DOMContentLoaded', function () {
+    const infoElements = document.querySelectorAll('.info');
 
-// Fetch data when the document is ready
-document.addEventListener("DOMContentLoaded", fetchData);
-
-
-// Fetch data when the document is ready
-document.addEventListener("DOMContentLoaded", fetchData);
+    infoElements.forEach(element => {
+        element.addEventListener('touchstart', function(event) {
+            // Show tooltip or expand information
+            this.classList.toggle('active');
+        });
+    });
+});
 
 
 
