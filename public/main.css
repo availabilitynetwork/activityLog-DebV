@@ -5,7 +5,7 @@ button,
 container {
   font-family: "Georgia", serif;
   font-variant: small-caps;
-  font-size: 10px; /* Larger base font size for readability on mobile */
+  font-size: 12px; /* Larger base font size for readability on mobile */
 }
 
 body {
@@ -49,6 +49,12 @@ body {
 td#emailRecentActivity {
   padding: 1.5rem !important;
 }
+
+.orange-background {
+  background-color: orange;
+  color: white; /* Optional: change text color for better visibility */
+}
+
 /* Media Queries for larger screens */
 @media (min-width: 768px) {
   .container {
