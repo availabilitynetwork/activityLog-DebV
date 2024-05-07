@@ -10,7 +10,7 @@ button,
 /* Basic styling for h3 with tooltip */
 h3 i {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
   cursor: help;
 }
 
@@ -19,6 +19,9 @@ h3-tooltip::after {
   content: "\f059"; /* FontAwesome Info-circle icon */
   font-family: "FontAwesome";
   margin-left: 5px;
+}
+#updateHoursButton {
+  float: right;
 }
 body {
   /* Set the background image */
