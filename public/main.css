@@ -2,12 +2,25 @@
 /* Base styles */
 body,
 button,
-container {
+h3-tooltip,
+.container {
   font-family: "Georgia", serif;
   font-variant: small-caps;
   font-size: 12px; /* Larger base font size for readability on mobile */
 }
+/* Basic styling for h3 with tooltip */
+h3 i {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
 
+/* Styling for the tooltip icon or indicator */
+h3-tooltip::after {
+  content: "\f059"; /* FontAwesome Info-circle icon */
+  font-family: "FontAwesome";
+  margin-left: 5px;
+}
 body {
   /* Set the background image */
   background-image: url("./img/pexels-eberhardgross-2310713.jpg");

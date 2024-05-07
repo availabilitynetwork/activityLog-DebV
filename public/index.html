@@ -475,7 +475,7 @@
 
       <div class="row">
         <div class="col">
-          <h3 class="p-2 d-inline-block" data-toggle="tooltip2" data-placement="right" title="recent activity is loaded after you enter an activity with exsisting Auth or add the Auth before or after the activity, it will update your recent activity cards.">Recent Activity <i class="fas fa-info-circle"></i></h3>
+          <h3 class="p-2 d-inline-block" data-toggle="tooltip" data-placement="tip" title="Recent activity is loaded after you enter an activity with exsisting Auth or add the Auth before or after the activity, it will update your recent activity cards, you may need to refresh your browser to see updated results.">Recent Activity <i class="fas fa-info-circle"></i></h3>
 
           <button id="updateHoursButton" class="btn btn-success p-2 m-2">Update Query | Billable Hours</button>
           
@@ -510,14 +510,7 @@
         document.getElementById("currentDate").textContent = dateString;
       });
     </script>
-    <script>document.addEventListener('DOMContentLoaded', function() {
-      var tooltip2TriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip2"]'));
-      var tooltip2List = tooltip2TriggerList.map(function(tooltipTriggerEl) {
-      return new bootstrap.Tooltip2(tooltip2TriggerEl);
-      });
-    });
-</script>
-  </body>
+   </body>
 </html>
 
 
