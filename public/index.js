@@ -15,6 +15,7 @@ async function fetchData() {
 
         // Check if 'type_name' contains 'PBA'
         const typeStyle = entry.type_name.includes("PBA") ? "orange-background" : "";
+        const tooltipText = entry.type_name.includes("PBA") ? "contains letters PBA, color codes to orange" : "";
 
         // Construct card content
         card.innerHTML = `
@@ -22,7 +23,7 @@ async function fetchData() {
                 <h5 class="card-title">Authorization Number: ${entry.auth_number}</h5>
                 <p class="card-text">
                     <strong>Last Name:</strong> ${entry.last_name}<br>
-                    <strong>Activity Type:</strong> <span class="${typeStyle}">${entry.type_name}</span><br>
+                    <strong>Activity Type:</strong> <span class="${typeStyle}" title="${tooltipText}">${entry.type_name}</span><br>
                     <strong>Activity Description:</strong> ${entry.activity_desc}<br>
                     <strong>Case Notes:</strong> ${entry.case_notes}<br>
                     <strong>Billable Hours:</strong> ${entry.billable_hours}<br>
@@ -36,6 +37,10 @@ async function fetchData() {
         container.appendChild(card);
     });
 }
+
+// Fetch data when the document is ready
+document.addEventListener("DOMContentLoaded", fetchData);
+
 
 // Fetch data when the document is ready
 document.addEventListener("DOMContentLoaded", fetchData);
