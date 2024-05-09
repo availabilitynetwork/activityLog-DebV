@@ -119,8 +119,15 @@ document.getElementById('selectActivityType').addEventListener('change', async f
             const data = await response.json();
 
             if (response.ok) {
-                // Populate the activity description field with the retrieved data
-                activityDescInput.value = data.activity_desc || '';
+                // Check if description is blank and handle it
+                if (data.activity_desc) {
+                    // Populate the activity description field with the retrieved data
+                    activityDescInput.value = data.activity_desc;
+                } else {
+                    // Description is blank, handle it here
+                    console.error('Description is blank.');
+                    activityDescInput.value = ''; // Clear the description field
+                }
             } else {
                 console.error('Error fetching description:', data.error); // Handle server error
                 activityDescInput.value = ''; // Clear the description field
