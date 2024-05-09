@@ -7,7 +7,7 @@ const path = require('path'); // Node.js Path module to handle file paths
 require('dotenv').config();
 
 // Specify the path to the CA certificate (required for SSL connection)
-//const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
+const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 // Specify the path to the CA certificate (required for SSL connection)
 //const caCertificatePath2 = path.join(__dirname, 'certs', 'ca-certificate-devV.crt');
 
