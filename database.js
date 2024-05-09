@@ -12,7 +12,7 @@ const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 const caCertificatePath2 = path.join(__dirname, 'certs', 'ca-certificate.crt*(1))');
 
 // Setup PostgreSQL connection pool using environment variables
-const pool2 = new Pool({
+const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,// Database server host
     database: process.env.DB_NAME, // Database name
@@ -24,7 +24,7 @@ const pool2 = new Pool({
     },
     connectionTimeoutMillis: 30000 // timeout of 30 seconds
 });
-const pool = new Pool({
+const pool2 = new Pool({
     user: process.env.DB_USER2,
     host: process.env.DB_HOST2,// Database server host
     database: process.env.DB_NAME2, // Database name
