@@ -7,35 +7,20 @@ const path = require('path'); // Node.js Path module to handle file paths
 require('dotenv').config();
 
 // Specify the path to the CA certificate (required for SSL connection)
-const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
-// Specify the path to the CA certificate (required for SSL connection)
-//const caCertificatePath2 = path.join(__dirname, 'certs', 'ca-certificate-debV.crt');
+const caCertificatePath2 = path.join(__dirname, 'certs', 'ca-certificate-debV.crt');
 
-// Setup PostgreSQL connection pool using environment variables
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,// Database server host
-    database: process.env.DB_NAME, // Database name
-    password: process.env.DB_PASS, // Database password
-    port: process.env.DB_PORT, // Database port
+    user: process.env.DB_USER2,
+    host: process.env.DB_HOST2,// Database server host
+    database: process.env.DB_NAME2, // Database name
+    password: process.env.DB_PASS2, // Database password
+    port: process.env.DB_PORT2, // Database port
     ssl: {
         rejectUnauthorized: true, // Enforce SSL validation for security
-        ca: fs.readFileSync(caCertificatePath).toString() // Read the CA certificate file for SSL
+        ca: fs.readFileSync(caCertificatePath2).toString() // Read the CA certificate file for SSL
     },
     connectionTimeoutMillis: 30000 // timeout of 30 seconds
 });
-// const pool = new Pool({
-//     user: process.env.DB_USER2,
-//     host: process.env.DB_HOST2,// Database server host
-//     database: process.env.DB_NAME2, // Database name
-//     password: process.env.DB_PASS2, // Database password
-//     port: process.env.DB_PORT2, // Database port
-//     ssl: {
-//         rejectUnauthorized: true, // Enforce SSL validation for security
-//         ca: fs.readFileSync(caCertificatePath2).toString() // Read the CA certificate file for SSL
-//     },
-//     connectionTimeoutMillis: 30000 // timeout of 30 seconds
-// });
 // Test database connectivity on start-up
 // Add this function in your database.js
 async function testDatabaseConnection() {
