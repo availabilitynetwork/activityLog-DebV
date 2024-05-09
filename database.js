@@ -9,7 +9,7 @@ require('dotenv').config();
 // Specify the path to the CA certificate (required for SSL connection)
 const caCertificatePath = path.join(__dirname, 'certs', 'ca-certificate.crt');
 // Specify the path to the CA certificate (required for SSL connection)
-const caCertificatePath2 = path.join(__dirname, 'certs', 'ca-certificate.crt*(1))');
+const caCertificatePath2 = path.join(__dirname, 'certs', 'ca-certificate.crt(1))');
 
 // Setup PostgreSQL connection pool using environment variables
 // const pool = new Pool({
