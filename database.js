@@ -6,7 +6,7 @@ const path = require('path'); // Node.js Path module to handle file paths
 // Load environment variables from `.env` file into `process.env`
 require('dotenv').config();
 
-// Specify the path to the CA certificate (required for SSL connection)
+// Specify the path to the CA certificate (required for SSL connection)ca-certificate.crt
 const caCertificatePath2 = path.join(__dirname, 'certs', 'ca-certificate-debV.crt');
 
 const pool = new Pool({
